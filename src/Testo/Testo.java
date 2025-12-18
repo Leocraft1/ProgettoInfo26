@@ -2,59 +2,59 @@
 
 Introduzione e idea del progetto
 
-Il progetto "Universo_DB" nasce dall’idea di realizzare un database relazionale di grandi dimensioni che rappresenti l’Universo non come un semplice insieme di pianeti e stelle, ma come un **sistema complesso, gerarchico e interconnesso**, simile a un vero catalogo scientifico utilizzato in ambito astronomico.
+Il progetto "Universo_DB" nasce dall’idea di realizzare un database relazionale di grandi dimensioni che rappresenti l’Universo non come un semplice insieme di pianeti e stelle, ma come un sistema complesso, gerarchico e interconnesso, simile a un vero catalogo scientifico utilizzato in ambito astronomico.
 
 Siamo partiti dall’osservazione che l’astronomia moderna non studia gli oggetti celesti in modo isolato, ma li analizza in relazione tra loro, nel tempo e nello spazio, attraverso osservazioni, missioni scientifiche e modelli cosmologici. Da qui nasce la volontà di costruire un database che rifletta questa complessità.
 
-Il progetto è stato pensato seguendo rigorosamente il **modello a tre strati** visto in classe:
+Il progetto è stato pensato seguendo rigorosamente il modello a tre strati visto in classe:
 
-* **Strato di presentazione**: applicazione Java con interfaccia a riga di comando
-* **Strato logico**: classi Java che gestiscono le operazioni sul database
-* **Strato dati**: database MySQL realizzato con MySQL Workbench
+- Strato di presentazione**: applicazione Java con interfaccia a riga di comando
+- Strato logico: classi Java che gestiscono le operazioni sul database
+- Strato dati: database MySQL realizzato con MySQL Workbench
 
----
+-------------------------------------------------------------------------------------------------------------
 
-## Obiettivo del progetto
+Obiettivo del progetto
 
 L’obiettivo principale è creare un database che permetta di:
 
-* rappresentare la **struttura dell’Universo** su più livelli (superammassi, galassie, sistemi stellari);
-* descrivere in modo dettagliato i **corpi celesti** (stelle, pianeti, buchi neri, nebulose, asteroidi);
-* modellare **fenomeni ed eventi cosmici** nel tempo;
-* collegare gli oggetti alle **osservazioni scientifiche**, agli strumenti e alle missioni spaziali;
-* utilizzare correttamente **relazioni, chiavi primarie e chiavi esterne**, tipi **ENUM** e **date**.
+- rappresentare la struttura dell’Universo su più livelli (superammassi, galassie, sistemi stellari);
+- descrivere in modo dettagliato i corpi celesti (stelle, pianeti, buchi neri, nebulose, asteroidi);
+- modellare fenomeni ed eventi cosmici nel tempo;
+- collegare gli oggetti alle osservazioni scientifiche, agli strumenti e alle missioni spaziali;
+- utilizzare correttamente relazioni, chiavi primarie e chiavi esterne, tipi ENUM e date.
 
-Il database non è quindi solo descrittivo, ma anche **relazionale e dinamico**, in grado di collegare oggetti, eventi e attività umane legate allo studio dello spazio.
+Il database non è quindi solo descrittivo, ma anche relazionale e dinamico, in grado di collegare oggetti, eventi e attività umane legate allo studio dello spazio.
 
----
+--------------------------------------------------------------------------------------------------------------------
 
-## Idea di fondo e approccio progettuale
+Idea di fondo e approccio progettuale
 
-L’idea di fondo è quella di costruire una **gerarchia cosmica**, partendo dalle strutture più grandi fino ad arrivare ai singoli oggetti e alle osservazioni:
+L’idea di fondo è quella di costruire una gerarchia cosmica, partendo dalle strutture più grandi fino ad arrivare ai singoli oggetti e alle osservazioni:
 
-* L’Universo è organizzato in **superammassi** e **ammassi di galassie**;
-* Ogni galassia contiene diversi **oggetti cosmici**;
-* Gli oggetti cosmici possono essere stelle, pianeti, buchi neri, nebulose, ecc.;
-* Le stelle possono avere sistemi planetari;
-* Nel tempo avvengono **eventi cosmici** rilevanti (supernove, fusioni, esplosioni);
-* Gli oggetti vengono studiati tramite **osservazioni scientifiche**, strumenti e missioni spaziali.
+- L’Universo è organizzato in superammassi e ammassi di galassie;
+- Ogni galassia contiene diversi oggetti cosmici;
+- Gli oggetti cosmici possono essere stelle, pianeti, buchi neri, nebulose, ecc.;
+- Le stelle possono avere sistemi planetari;
+- Nel tempo avvengono eventi cosmici rilevanti (supernove, fusioni, esplosioni);
+- Gli oggetti vengono studiati tramite osservazioni scientifiche, strumenti e missioni spaziali.
 
-Questo approccio consente di ottenere un modello coerente con la realtà scientifica e facilmente estendibile.
+Questo approccio consente di ottenere un modello coerente con la realtà scientifica e facilmente estendibile (in teoria).
 
----
+-------------------------------------------------------------------------------------------------------------------
 
-## Motivazione della scelta del tema
+Motivazione della scelta del tema
 
 La scelta del tema “Spazio e Universo” è motivata da:
 
-* l’elevato numero di entità e relazioni modellabili;
-* la possibilità di utilizzare concetti avanzati di database (ENUM, relazioni N–N, date, gerarchie);
-* l’interesse scientifico e culturale del tema;
-* la possibilità di realizzare un progetto ampio e strutturato, adatto a dimostrare le competenze acquisite.
+- l’elevato numero di entità e relazioni modellabili;
+- la possibilità di utilizzare concetti avanzati di database (ENUM, relazioni N–N, date, gerarchie);
+- l’interesse scientifico e culturale del tema;
+- la possibilità di realizzare un progetto ampio e strutturato, adatto a dimostrare le competenze acquisite.
 
----
+---------------------------------------------------------------------------------------------------------------------
 
-## Struttura generale del progetto
+Struttura generale del progetto
 
 Il progetto verrà sviluppato progressivamente, suddividendolo in più livelli:
 
@@ -67,14 +67,15 @@ Il progetto verrà sviluppato progressivamente, suddividendolo in più livelli:
 
 Ogni livello sarà integrato nel database e collegato all’applicazione Java.
 
----
+---------------------------------------------------------------------------------------------------------------
 
-## Conclusione
+Conclusione
 
-Universe_DB rappresenta un tentativo di applicare in modo concreto e avanzato le conoscenze sui database relazionali e sulla programmazione Java, realizzando un progetto complesso, coerente e strutturato, ispirato al funzionamento dei veri archivi astronomici scientifici.
-# Universe_DB – Schema concettuale e interrogazioni di esempio
+"Universo_DB" rappresenta un tentativo di applicare in modo concreto e avanzato le conoscenze sui database relazionali e sulla programmazione Java, realizzando un progetto complesso, coerente e strutturato, ispirato al funzionamento dei veri archivi astronomici scientifici.
 
-## SCHEMA DEL DATABASE (modello concettuale-logico)
+Universo_DB – Schema concettuale e interrogazioni di esempio:
+
+SCHEMA DEL DATABASE (modello concettuale-logico)
 
 GALASSIA (id_galassia, nome, tipo, redshift, massa)
 
@@ -104,7 +105,7 @@ PARTECIPAZIONE (id_missione*, id_astronauta*, ruolo)
 
 ---
 
-## QUERY DI ESEMPIO (ridotte ma complesse)
+QUERY DI ESEMPIO:
 
 Le seguenti interrogazioni sono state selezionate perché **strutturalmente complesse** e rappresentative delle principali funzionalità SQL avanzate (JOIN multipli, GROUP BY, HAVING, sottoquery, funzioni di aggregazione e ordinamenti). Il modello dati consente molte altre interrogazioni analoghe.
 
