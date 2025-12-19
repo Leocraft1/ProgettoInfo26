@@ -1,11 +1,8 @@
 package logic;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Properties;
 
 import leolib.iodb.DBConnector;
-import leolib.iodb.PropertiesRead;
 
 public class GestUniverso {
 	private DBConnector dbc;
@@ -37,15 +34,5 @@ public class GestUniverso {
 	}
 	public void setTabAttr(ArrayList<ArrayList<String>> tab_attr) {
 		this.tab_attr = tab_attr;
-	}
-	
-	//Fine getter e setter gestione
-	
-	public void loadTablesProps() throws IOException {
-		Properties p = PropertiesRead.createObj(config_path);
-		//Carico i titoli delle tabelle
-		tab_names.add(p.getProperty("astronauta.name"));
-		//Carico gli attributi delle tabelle, splitto e converto ad AL
-		
 	}
 }
