@@ -8,4 +8,5 @@ public class GestUniverso {
 	private DBConnector dbc;
 	private ArrayList<String> tab_names;
 	private ArrayList<ArrayList<String>> tab_attr;
+	
 }
