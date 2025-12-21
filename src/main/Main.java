@@ -1,11 +1,18 @@
 package main;
 
 import leolib.iodb.PropertiesRead;
+import model.Stella;
+import myexceptions.ParsingException;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import leolib.iodb.DBConnector;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ParsingException {
     	try {
     		String[] info = PropertiesRead.readBaseInfo("config.properties");
 
@@ -23,8 +30,13 @@ public class Main {
 	            System.out.println("2. Sei connesso a internet (il server e' remoto).");
 	            System.out.println("3. Il server e' online.");
 	        }
-    	}catch(Exception e) {
+    	}catch(SQLException e) {
     		System.out.println("Errore generale "+e);
+    	}
+    }
+    public static void print(ArrayList<Stella> a) {
+    	for(int i=0;i<a.size();i++) {
+    		System.out.println(a.get(i));
     	}
     }
 }
