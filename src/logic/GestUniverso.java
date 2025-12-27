@@ -268,4 +268,452 @@ public class GestUniverso {
         }
     }
 
+    /**
+     * Gets all stars with temperature greater than the given value.
+     *
+     * @param minTemp
+     * @return
+     * @throws SQLException
+     * @throws ParsingException
+     */
+    public ArrayList<Stella> getStelleByMinTemperatura(int minTemp)
+            throws SQLException, ParsingException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(0) + " WHERE temperatura > ?",
+                minTemp
+        );
+
+        ArrayList<Stella> out = new ArrayList<>();
+        while (rs.next()) {
+            int id = rs.getInt("idStella");
+            String nome = rs.getString("nome");
+            String sistema = rs.getString("sistema");
+            int temperatura = rs.getInt("temperatura");
+            FaseStella fase = FaseStella.valueOf(rs.getString("fase"));
+            int idGalassia = rs.getInt("idGalassia");
+
+            out.add(new Stella(id, nome, sistema, temperatura, fase, idGalassia));
+        }
+        return out;
+    }
+
+    /**
+     * Gets all stars in the given stellar phase.
+     *
+     * @param fase
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<Stella> getStelleByFase(FaseStella fase) throws SQLException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(0) + " WHERE fase = ?",
+                fase.toString()
+        );
+
+        ArrayList<Stella> out = new ArrayList<>();
+        while (rs.next()) {
+            out.add(new Stella(
+                    rs.getInt("idStella"),
+                    rs.getString("nome"),
+                    rs.getString("sistema"),
+                    rs.getInt("temperatura"),
+                    fase,
+                    rs.getInt("idGalassia")
+            ));
+        }
+        return out;
+    }
+
+    /**
+     * Gets the hottest star in the database.
+     *
+     * @return
+     * @throws SQLException
+     * @throws ParsingException
+     */
+    public Stella getStellaPiuCalda() throws SQLException, ParsingException {
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(0)
+                + " ORDER BY temperatura DESC LIMIT 1"
+        );
+
+        if (rs.next()) {
+            return new Stella(
+                    rs.getInt("idStella"),
+                    rs.getString("nome"),
+                    rs.getString("sistema"),
+                    rs.getInt("temperatura"),
+                    FaseStella.valueOf(rs.getString("fase")),
+                    rs.getInt("idGalassia")
+            );
+        }
+        return null;
+    }
+
+    /**
+     * Gets all cosmic events of the given type.
+     *
+     * @param tipo
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<EventoCosmico> getEventiByTipo(TipoEventoCosmico tipo)
+            throws SQLException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(1) + " WHERE tipo = ?",
+                tipo.toString()
+        );
+
+        ArrayList<EventoCosmico> out = new ArrayList<>();
+        while (rs.next()) {
+            out.add(new EventoCosmico(
+                    rs.getInt("idEventoCosmico"),
+                    rs.getString("nome"),
+                    tipo,
+                    rs.getDate("dataEvento").toLocalDate(),
+                    rs.getTime("oraEvento").toLocalTime(),
+                    rs.getInt("idStella")
+            ));
+        }
+        return out;
+    }
+
+    /**
+     * Gets all cosmic events after the given date.
+     *
+     * @param data
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<EventoCosmico> getEventiDopoData(LocalDate data)
+            throws SQLException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(1) + " WHERE dataEvento > ?",
+                java.sql.Date.valueOf(data)
+        );
+
+        ArrayList<EventoCosmico> out = new ArrayList<>();
+        while (rs.next()) {
+            out.add(new EventoCosmico(
+                    rs.getInt("idEventoCosmico"),
+                    rs.getString("nome"),
+                    TipoEventoCosmico.valueOf(rs.getString("tipo")),
+                    rs.getDate("dataEvento").toLocalDate(),
+                    rs.getTime("oraEvento").toLocalTime(),
+                    rs.getInt("idStella")
+            ));
+        }
+        return out;
+    }
+
+    /**
+     * Counts the number of cosmic events for a given star.
+     *
+     * @param idStella
+     * @return
+     * @throws SQLException
+     */
+    public int countEventiByStella(int idStella) throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT COUNT(*) AS totale FROM " + tab_names.get(1)
+                + " WHERE idStella = ?",
+                idStella
+        );
+
+        rs.next();
+        return rs.getInt("totale");
+    }
+
+    /**
+     * Gets all galaxies with mass greater than the given value.
+     *
+     * @param minMassa
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<Galassia> getGalassieByMinMassa(int minMassa)
+            throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(2) + " WHERE massa > ?",
+                minMassa
+        );
+
+        ArrayList<Galassia> out = new ArrayList<>();
+        while (rs.next()) {
+            out.add(new Galassia(
+                    rs.getInt("idGalassia"),
+                    rs.getString("nome"),
+                    rs.getString("tipo"),
+                    rs.getInt("massa")
+            ));
+        }
+        return out;
+    }
+
+    /**
+     * Gets the most massive galaxy.
+     *
+     * @return
+     * @throws SQLException
+     */
+    public Galassia getGalassiaPiuMassiccia() throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(2)
+                + " ORDER BY massa DESC LIMIT 1"
+        );
+
+        if (rs.next()) {
+            return new Galassia(
+                    rs.getInt("idGalassia"),
+                    rs.getString("nome"),
+                    rs.getString("tipo"),
+                    rs.getInt("massa")
+            );
+        }
+        return null;
+    }
+
+    /**
+     * Gets all galaxies of the given type.
+     *
+     * @param tipo
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<Galassia> getGalassieByTipo(String tipo)
+            throws SQLException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(2) + " WHERE tipo = ?",
+                tipo
+        );
+
+        ArrayList<Galassia> out = new ArrayList<>();
+        while (rs.next()) {
+            out.add(new Galassia(
+                    rs.getInt("idGalassia"),
+                    rs.getString("nome"),
+                    tipo,
+                    rs.getInt("massa")
+            ));
+        }
+        return out;
+    }
+
+    /**
+     * Gets all planets of the given type.
+     *
+     * @param tipo
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<Pianeta> getPianetiByTipo(TipoPianeta tipo)
+            throws SQLException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(3) + " WHERE tipo = ?",
+                tipo.toString()
+        );
+
+        ArrayList<Pianeta> out = new ArrayList<>();
+        while (rs.next()) {
+            out.add(new Pianeta(
+                    rs.getInt("idPianeta"),
+                    rs.getString("nome"),
+                    rs.getString("sistema"),
+                    tipo,
+                    rs.getInt("temperatura"),
+                    rs.getInt("idGalassia")
+            ));
+        }
+        return out;
+    }
+
+    /**
+     * Gets all planets with temperature between two values.
+     *
+     * @param minTemp
+     * @param maxTemp
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<Pianeta> getPianetiByTemperaturaRange(
+            int minTemp, int maxTemp) throws SQLException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(3)
+                + " WHERE temperatura BETWEEN ? AND ?",
+                minTemp, maxTemp
+        );
+
+        ArrayList<Pianeta> out = new ArrayList<>();
+        while (rs.next()) {
+            out.add(new Pianeta(
+                    rs.getInt("idPianeta"),
+                    rs.getString("nome"),
+                    rs.getString("sistema"),
+                    TipoPianeta.valueOf(rs.getString("tipo")),
+                    rs.getInt("temperatura"),
+                    rs.getInt("idGalassia")
+            ));
+        }
+        return out;
+    }
+
+    /**
+     * Gets all planets belonging to the given galaxy.
+     *
+     * @param idGalassia
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<Pianeta> getPianetiByGalassia(int idGalassia)
+            throws SQLException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(3) + " WHERE idGalassia = ?",
+                idGalassia
+        );
+
+        ArrayList<Pianeta> out = new ArrayList<>();
+        while (rs.next()) {
+            out.add(new Pianeta(
+                    rs.getInt("idPianeta"),
+                    rs.getString("nome"),
+                    rs.getString("sistema"),
+                    TipoPianeta.valueOf(rs.getString("tipo")),
+                    rs.getInt("temperatura"),
+                    idGalassia
+            ));
+        }
+        return out;
+    }
+
+    /**
+     * Gets all stars not associated with any galaxy.
+     *
+     * @return
+     * @throws SQLException
+     * @throws ParsingException
+     */
+    public ArrayList<Stella> getStelleSenzaGalassia()
+            throws SQLException, ParsingException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(0) + " WHERE idGalassia IS NULL"
+        );
+
+        ArrayList<Stella> out = new ArrayList<>();
+        while (rs.next()) {
+            out.add(new Stella(
+                    rs.getInt("idStella"),
+                    rs.getString("nome"),
+                    rs.getString("sistema"),
+                    rs.getInt("temperatura"),
+                    FaseStella.valueOf(rs.getString("fase"))
+            ));
+        }
+        return out;
+    }
+
+    /**
+     * Gets all planets without a star system.
+     *
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<Pianeta> getPianetiSenzaSistema() throws SQLException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(3) + " WHERE sistema IS NULL"
+        );
+
+        ArrayList<Pianeta> out = new ArrayList<>();
+        while (rs.next()) {
+            out.add(new Pianeta(
+                    rs.getInt("idPianeta"),
+                    rs.getString("nome"),
+                    TipoPianeta.valueOf(rs.getString("tipo")),
+                    rs.getInt("temperatura")
+            ));
+        }
+        return out;
+    }
+
+    /**
+     * Counts the number of stars in the given galaxy.
+     *
+     * @param idGalassia
+     * @return
+     * @throws SQLException
+     */
+    public int countStelleInGalassia(int idGalassia) throws SQLException {
+
+        ResultSet rs = dbc.query(
+                "SELECT COUNT(*) AS totale FROM " + tab_names.get(0)
+                + " WHERE idGalassia = ?",
+                idGalassia
+        );
+
+        rs.next();
+        return rs.getInt("totale");
+    }
+
+    /**
+     * Gets the most recent cosmic event.
+     *
+     * @return
+     * @throws SQLException
+     */
+    public EventoCosmico getUltimoEventoCosmico() throws SQLException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(1)
+                + " ORDER BY dataEvento DESC, oraEvento DESC LIMIT 1"
+        );
+
+        if (rs.next()) {
+            return new EventoCosmico(
+                    rs.getInt("idEventoCosmico"),
+                    rs.getString("nome"),
+                    TipoEventoCosmico.valueOf(rs.getString("tipo")),
+                    rs.getDate("dataEvento").toLocalDate(),
+                    rs.getTime("oraEvento").toLocalTime(),
+                    rs.getInt("idStella")
+            );
+        }
+        return null;
+    }
+
+    /**
+     * Gets all galaxies without any associated stars.
+     *
+     * @return
+     * @throws SQLException
+     */
+    public ArrayList<Galassia> getGalassieSenzaStelle() throws SQLException {
+
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(2)
+                + " WHERE idGalassia NOT IN ("
+                + "SELECT DISTINCT idGalassia FROM " + tab_names.get(0)
+                + " WHERE idGalassia IS NOT NULL)"
+        );
+
+        ArrayList<Galassia> out = new ArrayList<>();
+        while (rs.next()) {
+            out.add(new Galassia(
+                    rs.getInt("idGalassia"),
+                    rs.getString("nome"),
+                    rs.getString("tipo"),
+                    rs.getInt("massa")
+            ));
+        }
+        return out;
+    }
+
 }
