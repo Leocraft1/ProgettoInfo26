@@ -1,14 +1,18 @@
 package logic;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import model.Galassia;
 import model.Pianeta;
 import model.enums.TipoPianeta;
 import leolib.iodb.DBConnector;
+import leolib.iodb.PropertiesRead;
+import leolib.listutils.ALUtils;
 import model.EventoCosmico;
 import model.Stella;
 import model.enums.FaseStella;
@@ -16,13 +20,32 @@ import model.enums.TipoEventoCosmico;
 
 public class GestUniverso {
     private DBConnector dbc;
-    private ArrayList<String> tab_names; //Ordine di nomi di config.properties
-    private ArrayList<ArrayList<String>> tab_attr;
+    private ArrayList<String> tab_names = new ArrayList<>(); //Ordine di nomi di config.properties
+    private ArrayList<ArrayList<String>> tab_attr = new ArrayList<>();
+    private String cfg_path="config.properties";
 
+    public GestUniverso(DBConnector dbc) throws IOException {
+    	this.dbc = dbc;
+    	this.loadProperties();
+    }
+    
     public GestUniverso(DBConnector dbc, ArrayList<String> tab_names, ArrayList<ArrayList<String>> tab_attr) {
         this.dbc = dbc;
         this.tab_names = tab_names;
         this.tab_attr = tab_attr;
+    }
+    public void loadProperties() throws IOException {
+    	Properties p = PropertiesRead.createObj(cfg_path);
+    	//Loads tab names
+    	tab_names.add(p.getProperty("stella.name"));
+    	tab_names.add(p.getProperty("pianeta.name"));
+    	tab_names.add(p.getProperty("galassia.name"));
+    	tab_names.add(p.getProperty("eventocosmico.name"));
+    	//Loads attributes
+    	tab_attr.add(ALUtils.stringToArrayList(p.getProperty("stella.attributes").split(",")));
+    	tab_attr.add(ALUtils.stringToArrayList(p.getProperty("pianeta.attributes").split(",")));
+    	tab_attr.add(ALUtils.stringToArrayList(p.getProperty("galassia.attributes").split(",")));
+    	tab_attr.add(ALUtils.stringToArrayList(p.getProperty("eventocosmico.attributes").split(",")));
     }
 
     public DBConnector getDbc() {
@@ -75,38 +98,38 @@ public class GestUniverso {
     }
 
     /**
-     * Gets EventoCosmico ArrayList from DB.
+     * Gets Pianeta ArrayList from DB.
      *
      * @return
      * @throws SQLException
      */
-    public ArrayList<EventoCosmico> getEventiCosmici() throws SQLException {
+    public ArrayList<Pianeta> getPianeti() throws SQLException {
         ResultSet rs = dbc.query("SELECT * FROM " + tab_names.get(1));
-        return getECFromRS(rs);
+        return getPianetiFromRS(rs);
     }
 
     /**
-     * Saves EventoCosmico ArrayList to DB.
+     * Saves Pianeta ArrayList to DB.
      *
-     * @param eventi
+     * @param pianeti
      * @throws SQLException
      */
-    public void saveEventiCosmici(ArrayList<EventoCosmico> e) throws SQLException {
+    public void savePianeti(ArrayList<Pianeta> p) throws SQLException {
         dbc.update("DELETE FROM " + tab_names.get(1));
 
-        for (int i=0;i<e.size();i++) {
+        for (int i=0;i<p.size();i++) {
             dbc.update(
                 "INSERT INTO " + tab_names.get(1) + " VALUES (?,?,?,?,?,?)",
-                e.get(i).getIdEventoCosmico(),
-                e.get(i).getNome(),
-                e.get(i).getTipo().toString(),
-                e.get(i).getDataEvento(),
-                e.get(i).getOraEvento(),
-                e.get(i).getIdStella()
+                p.get(i).getIdPianeta(),
+                p.get(i).getNome(),
+                p.get(i).getSistema(),
+                p.get(i).getTipo().toString(),
+                p.get(i).getTemperatura(),
+                p.get(i).getIdGalassia()
             );
         }
     }
-
+    
     /**
      * Gets Galassia ArrayList from DB.
      *
@@ -137,40 +160,44 @@ public class GestUniverso {
             );
         }
     }
-
+    
     /**
-     * Gets Pianeta ArrayList from DB.
+     * Gets EventoCosmico ArrayList from DB.
      *
      * @return
      * @throws SQLException
      */
-    public ArrayList<Pianeta> getPianeti() throws SQLException {
+    public ArrayList<EventoCosmico> getEventiCosmici() throws SQLException {
         ResultSet rs = dbc.query("SELECT * FROM " + tab_names.get(3));
-        return getPianetiFromRS(rs);
+        return getECFromRS(rs);
     }
 
     /**
-     * Saves Pianeta ArrayList to DB.
+     * Saves EventoCosmico ArrayList to DB.
      *
-     * @param pianeti
+     * @param eventi
      * @throws SQLException
      */
-    public void savePianeti(ArrayList<Pianeta> p) throws SQLException {
+    public void saveEventiCosmici(ArrayList<EventoCosmico> e) throws SQLException {
         dbc.update("DELETE FROM " + tab_names.get(3));
 
-        for (int i=0;i<p.size();i++) {
+        for (int i=0;i<e.size();i++) {
             dbc.update(
                 "INSERT INTO " + tab_names.get(3) + " VALUES (?,?,?,?,?,?)",
-                p.get(i).getIdPianeta(),
-                p.get(i).getNome(),
-                p.get(i).getSistema(),
-                p.get(i).getTipo().toString(),
-                p.get(i).getTemperatura(),
-                p.get(i).getIdGalassia()
+                e.get(i).getIdEventoCosmico(),
+                e.get(i).getNome(),
+                e.get(i).getTipo().toString(),
+                e.get(i).getDataEvento(),
+                e.get(i).getOraEvento(),
+                e.get(i).getIdStella()
             );
         }
     }
 
+
+
+    //QUERIES
+    
     /**
      * Gets all stars with temperature greater than the given value.
      *
