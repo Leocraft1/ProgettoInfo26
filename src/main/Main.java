@@ -2,7 +2,6 @@ package main;
 
 import leolib.iodb.PropertiesRead;
 import model.Stella;
-import myexceptions.ParsingException;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,7 +11,7 @@ import leolib.iodb.DBConnector;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, ParsingException {
+    public static void main(String[] args) throws IOException {
     	try {
     		String[] info = PropertiesRead.readBaseInfo("config.properties");
 
