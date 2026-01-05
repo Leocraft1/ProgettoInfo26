@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
+
+import leolib.ioconsole.ConsoleRead;
 import logic.GestUniverso;
 import model.*;
 import model.enums.*;
@@ -17,12 +19,12 @@ public class CliUniverso {
     public CliUniverso(GestUniverso gu) {
         this.gu = gu;
     }
-
+/*
     public void inserisciStella() {
         try {
             System.out.println("--- Inserimento Stella ---");
             System.out.print("ID Stella: ");
-            int id = leggiInt();
+            int id = ConsoleRead.readPositiveInt();
             System.out.print("Nome: ");
             String nome = leggiStringa();
             System.out.print("Sistema (invio se nullo): ");
@@ -123,62 +125,5 @@ public class CliUniverso {
             System.out.println("Errore Database: " + e.getMessage());
         }
     }
-
-    // --- METODI DI SUPPORTO ---
-    private int leggiInt() throws CliInputException {
-        try {
-            int val = Integer.parseInt(sc.nextLine());
-            return val;
-        } catch (Exception e) {
-            throw new CliInputException("Input non valido: atteso un numero intero.");
-        }
-    }
-
-    private String leggiStringa() throws CliInputException {
-        String s = sc.nextLine();
-        if (s.trim().isEmpty()) {
-            throw new CliInputException("La stringa non può essere vuota.");
-        }
-        return s;
-    }
-
-    private FaseStella leggiFaseStella() throws CliInputException {
-        try {
-            return FaseStella.valueOf(sc.nextLine().toUpperCase().trim());
-        } catch (Exception e) {
-            throw new CliInputException("Fase stella non riconosciuta.");
-        }
-    }
-
-    private TipoPianeta leggiTipoPianeta() throws CliInputException {
-        try {
-            return TipoPianeta.valueOf(sc.nextLine().toUpperCase().trim());
-        } catch (Exception e) {
-            throw new CliInputException("Tipo pianeta non riconosciuto.");
-        }
-    }
-
-    private TipoEventoCosmico leggiTipoEvento() throws CliInputException {
-        try {
-            return TipoEventoCosmico.valueOf(sc.nextLine().toUpperCase().trim());
-        } catch (Exception e) {
-            throw new CliInputException("Tipo evento non riconosciuto.");
-        }
-    }
-
-    private LocalDate leggiData() throws CliInputException {
-        try {
-            return LocalDate.parse(sc.nextLine());
-        } catch (Exception e) {
-            throw new CliInputException("Formato data errato (USA YYYY-MM-DD).");
-        }
-    }
-
-    private LocalTime leggiOra() throws CliInputException {
-        try {
-            return LocalTime.parse(sc.nextLine());
-        } catch (Exception e) {
-            throw new CliInputException("Formato ora errato (USA HH:MM).");
-        }
-    }
+    */
 }
