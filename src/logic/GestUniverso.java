@@ -15,13 +15,15 @@ import model.enums.*;
 import myexceptions.*;
 
 public class GestUniverso {
+
     private DBConnector dbc;
     private ArrayList<String> tab_names = new ArrayList<>(); //Ordine di nomi di config.properties
     private ArrayList<ArrayList<String>> tab_attr = new ArrayList<>();
     private String cfg_path = "config.properties";
 
-    public GestUniverso() {} //Empty constructor because Cli needs to access cfg_path
-    
+    public GestUniverso() {
+    } //Empty constructor because Cli needs to access cfg_path
+
     //TEST constructors
     public GestUniverso(DBConnector dbc) throws IOException {
         this.dbc = dbc;
@@ -71,15 +73,16 @@ public class GestUniverso {
     public void setTabAttr(ArrayList<ArrayList<String>> tab_attr) {
         this.tab_attr = tab_attr;
     }
+
     public String getCfg_path() {
-		return cfg_path;
-	}
+        return cfg_path;
+    }
 
-	public void setCfg_path(String cfg_path) {
-		this.cfg_path = cfg_path;
-	}
+    public void setCfg_path(String cfg_path) {
+        this.cfg_path = cfg_path;
+    }
 
-	/**
+    /**
      * Gets Stella ArrayList from DB.
      *
      * @return
@@ -200,13 +203,12 @@ public class GestUniverso {
             );
         }
     }
-    
+
     //ADD
-    
     public void addStella(Stella s) throws SQLException, DuplicateException {
         ResultSet rs = dbc.query("SELECT * FROM " + tab_names.get(0) + " WHERE " + tab_attr.get(0).get(0) + " = ?", s.getIdStella());
         if (rs.next()) {
-            throw new DuplicateException("Stella gia'  presente con ID: " + s.getIdStella());
+            throw new DuplicateException("Stella gia'ï¿½ presente con ID: " + s.getIdStella());
         }
 
         dbc.update("INSERT INTO " + tab_names.get(0) + " VALUES(?,?,?,?,?,?)",
@@ -216,7 +218,7 @@ public class GestUniverso {
     public void addPianeta(Pianeta p) throws SQLException, DuplicateException {
         ResultSet rs = dbc.query("SELECT * FROM " + tab_names.get(1) + " WHERE " + tab_attr.get(1).get(0) + " = ?", p.getIdPianeta());
         if (rs.next()) {
-            throw new DuplicateException("Pianeta gia'  presente con ID: " + p.getIdPianeta());
+            throw new DuplicateException("Pianeta gia'ï¿½ presente con ID: " + p.getIdPianeta());
         }
 
         dbc.update("INSERT INTO " + tab_names.get(1) + " VALUES (?,?,?,?,?,?)",
@@ -226,7 +228,7 @@ public class GestUniverso {
     public void addGalassia(Galassia g) throws SQLException, DuplicateException {
         ResultSet rs = dbc.query("SELECT * FROM " + tab_names.get(2) + " WHERE " + tab_attr.get(2).get(0) + " = ?", g.getIdGalassia());
         if (rs.next()) {
-            throw new DuplicateException("Galassia gia'  presente con ID: " + g.getIdGalassia());
+            throw new DuplicateException("Galassia gia'ï¿½ presente con ID: " + g.getIdGalassia());
         }
 
         dbc.update("INSERT INTO " + tab_names.get(2) + " VALUES (?,?,?,?)",
@@ -236,26 +238,28 @@ public class GestUniverso {
     public void addEventoCosmico(EventoCosmico e) throws SQLException, DuplicateException {
         ResultSet rs = dbc.query("SELECT * FROM " + tab_names.get(3) + " WHERE " + tab_attr.get(3).get(0) + " = ?", e.getIdEventoCosmico());
         if (rs.next()) {
-            throw new DuplicateException("Evento gia'  presente con ID: " + e.getIdEventoCosmico());
+            throw new DuplicateException("Evento gia'ï¿½ presente con ID: " + e.getIdEventoCosmico());
         }
 
         dbc.update("INSERT INTO " + tab_names.get(3) + " VALUES (?,?,?,?,?,?)",
                 e.getIdEventoCosmico(), e.getNome(), e.getTipo().toString(), e.getDataEvento(), e.getOraEvento(), e.getIdStella());
     }
-    
+
     //DELETE
-    
     public int deleteStella(int id) throws SQLException {
-    	return dbc.update("DELETE FROM "+tab_names.get(0)+" WHERE "+tab_attr.get(0).get(0)+" = ?", id);
+        return dbc.update("DELETE FROM " + tab_names.get(0) + " WHERE " + tab_attr.get(0).get(0) + " = ?", id);
     }
+
     public int deletePianeta(int id) throws SQLException {
-    	return dbc.update("DELETE FROM "+tab_names.get(1)+" WHERE "+tab_attr.get(1).get(0)+" = ?", id);
+        return dbc.update("DELETE FROM " + tab_names.get(1) + " WHERE " + tab_attr.get(1).get(0) + " = ?", id);
     }
+
     public int deleteGalassia(int id) throws SQLException {
-    	return dbc.update("DELETE FROM "+tab_names.get(2)+" WHERE "+tab_attr.get(2).get(0)+" = ?", id);
+        return dbc.update("DELETE FROM " + tab_names.get(2) + " WHERE " + tab_attr.get(2).get(0) + " = ?", id);
     }
+
     public int deleteEventoCosmico(int id) throws SQLException {
-    	return dbc.update("DELETE FROM "+tab_names.get(3)+" WHERE "+tab_attr.get(3).get(0)+" = ?", id);
+        return dbc.update("DELETE FROM " + tab_names.get(3) + " WHERE " + tab_attr.get(3).get(0) + " = ?", id);
     }
 
     //QUERIES
@@ -613,4 +617,66 @@ public class GestUniverso {
         return out;
     }
 
+    public boolean existsStella(int id) throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT 1 FROM " + tab_names.get(0)
+                + " WHERE " + tab_attr.get(0).get(0) + " = ?",
+                id
+        );
+        return rs.next();
+    }
+
+    public boolean existsPianeta(int id) throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT 1 FROM " + tab_names.get(1)
+                + " WHERE " + tab_attr.get(1).get(0) + " = ?",
+                id
+        );
+        return rs.next();
+    }
+
+    public boolean existsGalassia(int id) throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT 1 FROM " + tab_names.get(2)
+                + " WHERE " + tab_attr.get(2).get(0) + " = ?",
+                id
+        );
+        return rs.next();
+    }
+
+    public ArrayList<Stella> getStelleByGalassia(int idGalassia) throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(0)
+                + " WHERE idGalassia = ?",
+                idGalassia
+        );
+        return getStelleFromRS(rs);
+    }
+
+    public ArrayList<Pianeta> getPianetiAbitabili() throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(1)
+                + " WHERE temperatura BETWEEN -20 AND 50"
+        );
+        return getPianetiFromRS(rs);
+    }
+
+    public int countPianetiInGalassia(int idGalassia) throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT COUNT(*) AS totale FROM " + tab_names.get(1)
+                + " WHERE idGalassia = ?",
+                idGalassia
+        );
+        rs.next();
+        return rs.getInt("totale");
+    }
+
+    public ArrayList<Pianeta> getPianetiByMinTemperatura(int minTemp) throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(1)
+                + " WHERE temperatura > ?",
+                minTemp
+        );
+        return getPianetiFromRS(rs);
+    }
 }
