@@ -15,6 +15,7 @@ public class TableFormatter {
 		ArrayList<String> tmp = new ArrayList<>();
 		
 		for(int i=0;i<al.size();i++) {
+			tmp.clear();
 			tmp.add(String.valueOf(al.get(i).getIdStella()));
 			tmp.add(al.get(i).getNome());
 			if(al.get(i).getSistema()==null) {
@@ -36,6 +37,7 @@ public class TableFormatter {
 		ArrayList<String> tmp = new ArrayList<>();
 		
 		for(int i=0;i<al.size();i++) {
+			tmp.clear();
 			tmp.add(String.valueOf(al.get(i).getIdEventoCosmico()));
 			tmp.add(al.get(i).getNome());
 			tmp.add(al.get(i).getTipo().toString());
@@ -53,6 +55,7 @@ public class TableFormatter {
 		ArrayList<String> tmp = new ArrayList<>();
 		
 		for(int i=0;i<al.size();i++) {
+			tmp.clear();
 			tmp.add(String.valueOf(al.get(i).getIdGalassia()));
 			tmp.add(al.get(i).getNome());
 			tmp.add(al.get(i).getTipo());
@@ -68,6 +71,7 @@ public class TableFormatter {
 		ArrayList<String> tmp = new ArrayList<>();
 		
 		for(int i=0;i<al.size();i++) {
+			tmp.clear();
 			tmp.add(String.valueOf(al.get(i).getIdPianeta()));
 			tmp.add(al.get(i).getNome());
 			if(al.get(i).getSistema()==null) {
