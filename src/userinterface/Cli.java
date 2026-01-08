@@ -19,8 +19,9 @@ import model.enums.TipoPianeta;
 import myexceptions.DuplicateException;
 
 public class Cli {
-
     private GestUniverso g = new GestUniverso();
+    String[] app_info = getAppInfo();
+    private String app_name = app_info[0];
 
     public Cli() {
         try {
@@ -36,7 +37,10 @@ public class Cli {
     public GestUniverso getGest() {
 		return g;
 	}
-
+    
+    public void startMessage() {
+    	System.out.println("Benvenuto in: "+app_name);
+    }
 
 	// ================= INSERIMENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
     private void inserisciStella() throws SQLException, DuplicateException {
@@ -261,5 +265,14 @@ public class Cli {
         for (TipoEventoCosmico t : TipoEventoCosmico.values()) {
             System.out.println("- " + t);
         }
+    }
+    
+    private String[] getAppInfo() {
+    	try {
+			return PropertiesRead.readBaseInfo(g.getCfg_path());
+		} catch (IOException e) {
+			System.out.println("Errore di lettura del file config.properties.");
+			return null;
+		}
     }
 }
