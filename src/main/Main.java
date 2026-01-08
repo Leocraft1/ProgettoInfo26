@@ -16,7 +16,6 @@ public class Main {
             System.out.println("Benvenuto in: " + info[0]);
 
             Cli cli = new Cli();
-            cli.start();   // ⬅️ QUI PARTE TUTTO LEO TOSCHITOS SUCA SUCA
 
         } catch (ConnectionException e) {
             System.out.println("==========================================================");
