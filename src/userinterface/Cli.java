@@ -33,90 +33,6 @@ public class Cli {
         }
     }
 
-    public void start() throws SQLException {
-        menuPrincipale();
-    }
-    // ================= MENU PRINCIPALE =================
-
-    private void menuPrincipale() throws SQLException {
-        int scelta;
-        do {
-            System.out.println("\n=== UNIVERSO DB ===");
-            System.out.println("1) Visualizza");
-            System.out.println("2) Inserisci");
-            System.out.println("3) Elimina");
-            System.out.println("0) Esci");
-            System.out.print("Scelta: ");
-
-            scelta = ConsoleRead.readInt();
-
-            switch (scelta) {
-                case 1 ->
-                    menuVisualizza();
-                case 2 ->
-                    menuInserisci();
-                case 3 ->
-                    menuElimina();
-                case 0 ->
-                    System.out.println("Arrivederci 🚀");
-                default ->
-                    System.out.println("Scelta non valida");
-            }
-        } while (scelta != 0);
-    }
-
-    // ================= VISUALIZZA =================
-    private void menuVisualizza() throws SQLException {
-        int s;
-        do {
-            System.out.println("\n--- VISUALIZZA ---");
-            System.out.println("1) Stelle");
-            System.out.println("2) Pianeti");
-            System.out.println("3) Galassie");
-            System.out.println("0) Indietro");
-            System.out.print("Scelta: ");
-
-            s = ConsoleRead.readInt();
-
-            switch (s) {
-                case 1 ->
-                    gu.getStelle().forEach(System.out::println);
-                case 2 ->
-                    gu.getPianeti().forEach(System.out::println);
-                case 3 ->
-                    gu.getGalassie().forEach(System.out::println);
-            }
-        } while (s != 0);
-    }
-
-    // ================= INSERISCI =================
-    private void menuInserisci() {
-        int s;
-        do {
-            System.out.println("\n--- INSERISCI ---");
-            System.out.println("1) Stella");
-            System.out.println("2) Pianeta");
-            System.out.println("3) Galassia");
-            System.out.println("0) Indietro");
-            System.out.print("Scelta: ");
-
-            s = ConsoleRead.readInt();
-
-            try {
-                switch (s) {
-                    case 1 ->
-                        inserisciStella();
-                    case 2 ->
-                        inserisciPianeta();
-                    case 3 ->
-                        inserisciGalassia();
-                }
-            } catch (Exception e) {
-                System.out.println("Errore inserimento");
-            }
-        } while (s != 0);
-    }
-
     private void inserisciStella() throws SQLException, DuplicateException {
         System.out.print("ID: ");
         int id = ConsoleRead.readPositiveInt();
@@ -180,36 +96,6 @@ public class Cli {
 
         gu.addGalassia(new Galassia(id, nome, tipo, massa));
         System.out.println("Galassia inserita");
-    }
-
-    // ================= ELIMINA =================
-    private void menuElimina() throws SQLException {
-        int s;
-        do {
-            System.out.println("\n--- ELIMINA ---");
-            System.out.println("1) Stella");
-            System.out.println("2) Pianeta");
-            System.out.println("3) Galassia");
-            System.out.println("0) Indietro");
-            System.out.print("Scelta: ");
-
-            s = ConsoleRead.readInt();
-
-            if (s != 0) {
-                System.out.print("ID: ");
-                int id = ConsoleRead.readPositiveInt();
-
-                switch (s) {
-                    case 1 ->
-                        gu.deleteStella(id);
-                    case 2 ->
-                        gu.deletePianeta(id);
-                    case 3 ->
-                        gu.deleteGalassia(id);
-                }
-                System.out.println("Eliminazione completata");
-            }
-        } while (s != 0);
     }
 
     // ================= SUPPORTO ENUM =================
