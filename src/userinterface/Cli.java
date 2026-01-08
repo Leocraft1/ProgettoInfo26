@@ -16,29 +16,29 @@ import model.Stella;
 import model.enums.FaseStella;
 import model.enums.TipoEventoCosmico;
 import model.enums.TipoPianeta;
-import myexceptions.ConnectionException;
 import myexceptions.DuplicateException;
 
 public class Cli {
 
-    private GestUniverso gu = new GestUniverso();
+    private GestUniverso g = new GestUniverso();
 
-    public Cli() throws ConnectionException {
+    public Cli() {
         try {
-            String[] info = PropertiesRead.readBaseInfo(gu.getCfg_path());
-            DBConnector dbc = new DBConnector(info[2], info[3], info[4]);
-            if (!dbc.testConnection()) {
-                throw new ConnectionException();
-            }
-            gu.setDbc(dbc);
+            String[] info = PropertiesRead.readBaseInfo(g.getCfg_path());
+            g = new GestUniverso(new DBConnector(info[2],info[3],info[4]));
         } catch (IOException e) {
             System.out.println("Errore di lettura del file config.properties.");
         } catch (SQLException e) {
             System.out.println("Errore di creazione DBConnector.");
         }
     }
+    
+    public GestUniverso getGest() {
+		return g;
+	}
 
-    // ================= INSERIMENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
+
+	// ================= INSERIMENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
     private void inserisciStella() throws SQLException, DuplicateException {
 
         System.out.print("ID: ");
@@ -60,7 +60,7 @@ public class Cli {
         System.out.print("ID Galassia: ");
         int idGal = ConsoleRead.readPositiveInt();
 
-        gu.addStella(new Stella(id, nome, sistema, temp, fase, idGal));
+        g.addStella(new Stella(id, nome, sistema, temp, fase, idGal));
         System.out.println("Stella inserita");
     }
 
@@ -85,7 +85,7 @@ public class Cli {
         System.out.print("ID Galassia: ");
         int idGal = ConsoleRead.readPositiveInt();
 
-        gu.addPianeta(new Pianeta(id, nome, sistema, tipo, temp, idGal));
+        g.addPianeta(new Pianeta(id, nome, sistema, tipo, temp, idGal));
         System.out.println("Pianeta inserito");
     }
 
@@ -103,7 +103,7 @@ public class Cli {
         System.out.print("Massa: ");
         int massa = ConsoleRead.readPositiveInt();
 
-        gu.addGalassia(new Galassia(id, nome, tipo, massa));
+        g.addGalassia(new Galassia(id, nome, tipo, massa));
         System.out.println("Galassia inserita");
     }
 
@@ -129,7 +129,7 @@ public class Cli {
         System.out.print("ID Stella: ");
         int idStella = ConsoleRead.readPositiveInt();
 
-        gu.addEventoCosmico(new EventoCosmico(id, nome, tipo, data, ora, idStella));
+        g.addEventoCosmico(new EventoCosmico(id, nome, tipo, data, ora, idStella));
         System.out.println("Evento cosmico inserito");
     }
 
@@ -150,7 +150,7 @@ public class Cli {
             return;
         }
 
-        int righe = gu.deleteStella(id);
+        int righe = g.deleteStella(id);
         System.out.println(righe > 0 ? "Stella rimossa" : "Stella non trovata");
     }
 
@@ -164,7 +164,7 @@ public class Cli {
             return;
         }
 
-        int righe = gu.deletePianeta(id);
+        int righe = g.deletePianeta(id);
         System.out.println(righe > 0 ? "Pianeta rimosso" : "Pianeta non trovato");
     }
 
@@ -178,7 +178,7 @@ public class Cli {
             return;
         }
 
-        int righe = gu.deleteGalassia(id);
+        int righe = g.deleteGalassia(id);
         System.out.println(righe > 0 ? "Galassia rimossa" : "Galassia non trovata");
     }
 
@@ -192,13 +192,13 @@ public class Cli {
             return;
         }
 
-        int righe = gu.deleteEventoCosmico(id);
+        int righe = g.deleteEventoCosmico(id);
         System.out.println(righe > 0 ? "Evento rimosso" : "Evento non trovato");
     }
 
     // ================= VISUALIZZAZIONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE =================
     private void mostraStelle() throws SQLException {
-        ArrayList<Stella> stelle = gu.getStelle();
+        ArrayList<Stella> stelle = g.getStelle();
         if (stelle.isEmpty()) {
             System.out.println("Nessuna stella presente");
             return;
@@ -209,7 +209,7 @@ public class Cli {
     }
 
     private void mostraPianeti() throws SQLException {
-        ArrayList<Pianeta> pianeti = gu.getPianeti();
+        ArrayList<Pianeta> pianeti = g.getPianeti();
         if (pianeti.isEmpty()) {
             System.out.println("Nessun pianeta presente");
             return;
@@ -220,7 +220,7 @@ public class Cli {
     }
 
     private void mostraGalassie() throws SQLException {
-        ArrayList<Galassia> galassie = gu.getGalassie();
+        ArrayList<Galassia> galassie = g.getGalassie();
         if (galassie.isEmpty()) {
             System.out.println("Nessuna galassia presente");
             return;
@@ -231,7 +231,7 @@ public class Cli {
     }
 
     private void mostraEventiCosmici() throws SQLException {
-        ArrayList<EventoCosmico> eventi = gu.getEventiCosmici();
+        ArrayList<EventoCosmico> eventi = g.getEventiCosmici();
         if (eventi.isEmpty()) {
             System.out.println("Nessun evento presente");
             return;
