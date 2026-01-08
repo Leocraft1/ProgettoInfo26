@@ -19,6 +19,7 @@ import model.enums.TipoPianeta;
 import myexceptions.DuplicateException;
 
 public class Cli {
+
     private GestUniverso g = new GestUniverso();
     String[] app_info = getAppInfo();
     private String app_name = app_info[0];
@@ -26,23 +27,110 @@ public class Cli {
     public Cli() {
         try {
             String[] info = PropertiesRead.readBaseInfo(g.getCfg_path());
-            g = new GestUniverso(new DBConnector(info[2],info[3],info[4]));
+            g = new GestUniverso(new DBConnector(info[2], info[3], info[4]));
         } catch (IOException e) {
             System.out.println("Errore di lettura del file config.properties.");
         } catch (SQLException e) {
             System.out.println("Errore di creazione DBConnector.");
         }
     }
-    
+
     public GestUniverso getGest() {
-		return g;
-	}
-    
-    public void startMessage() {
-    	System.out.println("Benvenuto in: "+app_name);
+        return g;
     }
 
-	// ================= INSERIMENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
+    public static void avviaAnimazione() {
+        try {
+            System.out.println("Inizializzazione sistemi di Universo_DB...");
+            pausa(1000); // Aspetta 1 secondo
+
+            // SCENA 1: Partenza da Alpha Centauri
+            System.out.println("\n--- PARTENZA DA ALPHA CENTAURI ---");
+            System.out.println("       (  )   ");
+            System.out.println("     (      ) ");
+            System.out.println("    ( ALPHA  )");
+            System.out.println("     (      ) ");
+            System.out.println("       (  )   ");
+            System.out.println("         |    ");
+            System.out.println("         |    ");
+            System.out.println("        /^\\   ");
+            System.out.println("        | |   ");
+            System.out.println("       /_|_\\  ");
+            System.out.println("        |*|   ");
+            System.out.println("       * * * ");
+            pausa(2000);
+
+            // Simulazione del decollo (scorre verso l'alto stampando righe vuote)
+            System.out.println("Motori accesi... 3, 2, 1... VIA!");
+            for (int i = 0; i < 5; i++) {
+                System.out.println("\n");
+                pausa(300);
+            }
+
+            // SCENA 2: Viaggio e Ostacoli
+            System.out.println("Entrata nell'iper-spazio...");
+            pausa(1500);
+
+            // Ostacolo 1: Asteroidi (Il razzo si sposta a destra)
+            System.out.println("\n!!! ALLARME: FASCIA DI ASTEROIDI RILEVATA !!!");
+            System.out.println("   * .  * #     -> Schivata a destra ->      /^\\");
+            System.out.println(" .  #   * . #                                  | |");
+            System.out.println("   * .  #  * /_|_\\");
+            pausa(2000);
+
+            // Ostacolo 2: Galassia (Il razzo si sposta a sinistra)
+            System.out.println("\n!!! WOW: PASSAGGIO VICINO ALLA GALASSIA ANDROMEDA !!!");
+            System.out.println("      /^\\         .       .       ");
+            System.out.println("      | |      .     ( @ )     .  ");
+            System.out.println("     /_|_\\        .    '    .     ");
+            pausa(2000);
+
+            // Ostacolo 3: UFO (Il razzo torna al centro)
+            System.out.println("\n!!! ATTENZIONE: OGGETTO NON IDENTIFICATO !!!");
+            System.out.println("   /---\\                                        /^\\");
+            System.out.println("  ( o o )  <-- Ciao Terrestre! -->              | |");
+            System.out.println("   \\---/                                       /_|_\\");
+            pausa(2000);
+
+            // SCENA 3: Arrivo sulla Terra
+            System.out.println("\n--- AVVICINAMENTO ALLA TERRA ---");
+            pausa(1000);
+            System.out.println("           _______      ");
+            System.out.println("        .-'       `-.    ");
+            System.out.println("      .'   TERRA     `.  ");
+            System.out.println("     /   _      _      \\ ");
+            System.out.println("    |  ( )    ( )      | "); // Continenti stilizzati
+            System.out.println("    |    ______        | ");
+            System.out.println("     \\     \\/        /  ");
+            System.out.println("      `.           .'    ");
+            System.out.println("        `-._____.-'      ");
+            System.out.println("            | |          ");
+            System.out.println("           /_|_\\         ");
+            System.out.println("       ATTERRAGGIO RIUSCITO!");
+            System.out.println("------------------------------------------------");
+            pausa(1500);
+
+            // Qui il programma tornerà al tuo codice principale
+        } catch (Exception e) {
+            // Se qualcosa va storto nell'animazione, non blocchiamo il programma
+            System.out.println("Errore nel sistema di navigazione...");
+        }
+    }
+
+    // Piccolo metodo "aiutante" per mettere in pausa il programma senza scrivere ogni volta try-catch
+    public static void pausa(int millisecondi) {
+        try {
+            Thread.sleep(millisecondi);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void startMessage() {
+        System.out.println("Benvenuto in: " + app_name);
+    }
+    // ================= INSERIMENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
+
     private void inserisciStella() throws SQLException, DuplicateException {
 
         System.out.print("ID: ");
@@ -266,13 +354,13 @@ public class Cli {
             System.out.println("- " + t);
         }
     }
-    
+
     private String[] getAppInfo() {
-    	try {
-			return PropertiesRead.readBaseInfo(g.getCfg_path());
-		} catch (IOException e) {
-			System.out.println("Errore di lettura del file config.properties.");
-			return null;
-		}
+        try {
+            return PropertiesRead.readBaseInfo(g.getCfg_path());
+        } catch (IOException e) {
+            System.out.println("Errore di lettura del file config.properties.");
+            return null;
+        }
     }
 }
