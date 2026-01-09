@@ -568,20 +568,20 @@ public class GestUniverso {
         }
         return out;
     }
-
-    private ArrayList<EventoCosmico> getECFromRS(ResultSet rs) throws SQLException {
-        ArrayList<EventoCosmico> out = new ArrayList<>();
+    
+    private ArrayList<Pianeta> getPianetiFromRS(ResultSet rs) throws SQLException {
+        ArrayList<Pianeta> out = new ArrayList<>();
 
         while (rs.next()) {
             int id = rs.getInt(tab_attr.get(1).get(0));
             String nome = rs.getString(tab_attr.get(1).get(1));
-            String tipoStr = rs.getString(tab_attr.get(1).get(2));
-            TipoEventoCosmico tipo = TipoEventoCosmico.valueOf(tipoStr);
-            LocalDate data = rs.getDate(tab_attr.get(1).get(3)).toLocalDate();
-            LocalTime ora = rs.getTime(tab_attr.get(1).get(4)).toLocalTime();
-            int idStella = rs.getInt(tab_attr.get(1).get(5));
+            String sistema = rs.getString(tab_attr.get(1).get(2));
+            String tipoStr = rs.getString(tab_attr.get(1).get(3));
+            TipoPianeta tipo = TipoPianeta.valueOf(tipoStr);
+            int temperatura = rs.getInt(tab_attr.get(1).get(4));
+            int idGalassia = rs.getInt(tab_attr.get(1).get(5));
 
-            out.add(new EventoCosmico(id, nome, tipo, data, ora, idStella));
+            out.add(new Pianeta(id, nome, sistema, tipo, temperatura, idGalassia));
         }
         return out;
     }
@@ -600,19 +600,19 @@ public class GestUniverso {
         return out;
     }
 
-    private ArrayList<Pianeta> getPianetiFromRS(ResultSet rs) throws SQLException {
-        ArrayList<Pianeta> out = new ArrayList<>();
+    private ArrayList<EventoCosmico> getECFromRS(ResultSet rs) throws SQLException {
+        ArrayList<EventoCosmico> out = new ArrayList<>();
 
         while (rs.next()) {
             int id = rs.getInt(tab_attr.get(3).get(0));
             String nome = rs.getString(tab_attr.get(3).get(1));
-            String sistema = rs.getString(tab_attr.get(3).get(2));
-            String tipoStr = rs.getString(tab_attr.get(3).get(3));
-            TipoPianeta tipo = TipoPianeta.valueOf(tipoStr);
-            int temperatura = rs.getInt(tab_attr.get(3).get(4));
-            int idGalassia = rs.getInt(tab_attr.get(3).get(5));
+            String tipoStr = rs.getString(tab_attr.get(3).get(2));
+            TipoEventoCosmico tipo = TipoEventoCosmico.valueOf(tipoStr);
+            LocalDate data = rs.getDate(tab_attr.get(3).get(3)).toLocalDate();
+            LocalTime ora = rs.getTime(tab_attr.get(3).get(4)).toLocalTime();
+            int idStella = rs.getInt(tab_attr.get(3).get(5));
 
-            out.add(new Pianeta(id, nome, sistema, tipo, temperatura, idGalassia));
+            out.add(new EventoCosmico(id, nome, tipo, data, ora, idStella));
         }
         return out;
     }

@@ -24,7 +24,6 @@ import myexceptions.DuplicateException;
 import utils.TableFormatter;
 
 public class Cli {
-
     private GestUniverso g = new GestUniverso();
     String[] app_info = getAppInfo();
     private String app_name = app_info[0];
@@ -45,64 +44,65 @@ public class Cli {
     }
 
     public void startMessage() {
-        System.out.println("\n--- INIZIALIZZAZIONE MISSIONE RAPIDA ---");
-        pausa(700);
+    	if(app_info[5].equals("true")) {
+    		System.out.println("\n--- INIZIALIZZAZIONE MISSIONE RAPIDA ---");
+            pausa(700);
 
-        // --- FASE 1: Conto alla rovescia ---
-        System.out.print("Conto alla rovescia: 3...");
-        pausa(700);
-        System.out.print(" 2...");
-        pausa(700);
-        System.out.println(" 1...");
-        pausa(700);
-        System.out.println(">>> MOTORI AL MASSIMO! DECOLLO! <<<");
+            // --- FASE 1: Conto alla rovescia ---
+            System.out.print("Conto alla rovescia: 3...");
+            pausa(700);
+            System.out.print(" 2...");
+            pausa(700);
+            System.out.println(" 1...");
+            pausa(700);
+            System.out.println(">>> MOTORI AL MASSIMO! DECOLLO! <<<");
 
-        // Razzo LLCH
-        String razzo
-                = "        ^\n"
-                + "       / \\\n"
-                + "      | L |\n"
-                + "      | L |\n"
-                + "      | C |\n"
-                + "      | H |\n"
-                + "     /|   |\\\n"
-                + "    * * * * *"
-                + "      * * *"
-                + "       * *"
-                + "        *";
+            // Razzo LLCH
+            String razzo
+                    = "        ^\n"
+                    + "       / \\\n"
+                    + "      | L |\n"
+                    + "      | L |\n"
+                    + "      | C |\n"
+                    + "      | H |\n"
+                    + "     /|   |\\\n"
+                    + "    * * * * *"
+                    + "      * * *"
+                    + "       * *"
+                    + "        *";
 
-        // --- FASE 2: Lancio ---
-        for (int i = 0; i < 5; i++) {
+            // --- FASE 2: Lancio ---
             System.out.print("\n\n\n\n\n\n\n\n\n\n");
-
-            for (int spazio = 0; spazio < i * 2; spazio++) {
-                System.out.println("");
-            }
+            System.out.println("LLCH IN ASCESA...");
             System.out.println(razzo);
-            System.out.println("...LLCH IN ASCESA...");
             pausa(350);
-        }
+            for (int i = 0; i < 5; i++) {
+                for (int spazio = 0; spazio < i * 2; spazio++) {
+                    System.out.println("");
+                }
+                pausa(350);
+            }
+            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
-        // --- FASE 3: Arrivo a Saturno ---
-        pausa(1000);
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            // --- FASE 3: Arrivo a Saturno ---
+            pausa(1000);
 
-        System.out.println("                  _______________________                  ");
-        System.out.println("           ________---                   ---________        AGGUANCIO RIUSCITO!");
-        System.out.println("      ____---           _____________           ---____");
-        System.out.println("   __--               .-\"             \"-.               --__");
-        System.out.println("  /                 .'     S A T U R N O    '.                 \\");
-        System.out.println(" |                 /                           \\                 |");
-        System.out.println("  \\               '.                         .'                 /");
-        System.out.println("   --__              '-._                  _.-'               __--");
-        System.out.println("        ---____              \"\"\"\"\"\"\"\"\"\"\"              ____---");
-        System.out.println("                ---___________         ___________---");
-        System.out.println("                            -----------------");
-        System.out.println("                     === ANELLI DI SATURNO ===");
-        System.out.println("              =======---------------------------=======");
-        System.out.println("---------------------------------------------");
+            System.out.println("                  _______________________                  ");
+            System.out.println("           ________---                   ---________        AGGANCIO RIUSCITO!");
+            System.out.println("      ____---           _____________           ---____");
+            System.out.println("   __--               .-\"             \"-.               --__");
+            System.out.println("  /                 .'     S A T U R N O    '.                 \\");
+            System.out.println(" |                 /                           \\                 |");
+            System.out.println("  \\               '.                         .'                 /");
+            System.out.println("   --__              '-._                  _.-'               __--");
+            System.out.println("        ---____              \"\"\"\"\"\"\"\"\"\"\"              ____---");
+            System.out.println("                ---___________         ___________---");
+            System.out.println("                            -----------------");
+            System.out.println("");
+            System.out.println("---------------------------------------------");
 
-        pausa(1600);
+            pausa(100);
+    	}
         System.out.println("Benvenuto in: " + app_name.toUpperCase());
     }
 
@@ -135,7 +135,6 @@ public class Cli {
     }
 
     public void printMainMenuPage() {
-
         System.out.println("############## MENU' PRINCIPALE ##############");
         System.out.println("Seleziona un'opzione:");
         System.out.println("");
@@ -146,7 +145,7 @@ public class Cli {
         System.out.println("");
         System.out.println("0) Esci");
         System.out.println("##############################################");
-        System.out.println("Opzione:");
+        System.out.print("Opzione:");
     }
 
     public void printStelleMenuPage() {
@@ -157,9 +156,9 @@ public class Cli {
         System.out.println("2) Crea stella");
         System.out.println("3) Rimuovi stella");
         System.out.println("");
-        System.out.println("0) Esci");
+        System.out.println("0) Indietro");
         System.out.println("**********************************************");
-        System.out.println("Opzione:");
+        System.out.print("Opzione:");
     }
 
     public void printPianetiMenuPage() {
@@ -170,9 +169,9 @@ public class Cli {
         System.out.println("2) Crea pianeta");
         System.out.println("3) Rimuovi pianeta");
         System.out.println("");
-        System.out.println("0) Esci");
+        System.out.println("0) Indietro");
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-        System.out.println("Opzione:");
+        System.out.print("Opzione:");
     }
 
     public void printGalassieMenuPage() {
@@ -183,9 +182,9 @@ public class Cli {
         System.out.println("2) Crea galassia");
         System.out.println("3) Rimuovi galassia");
         System.out.println("");
-        System.out.println("0) Esci");
+        System.out.println("0) Indietro");
         System.out.println("==============================================");
-        System.out.println("Opzione:");
+        System.out.print("Opzione:");
     }
 
     public void printEventoCosmicoMenuPage() {
@@ -196,9 +195,9 @@ public class Cli {
         System.out.println("2) Crea evento cosmico");
         System.out.println("3) Rimuovi evento cosmico");
         System.out.println("");
-        System.out.println("0) Esci");
+        System.out.println("0) Indietro");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println("Opzione:");
+        System.out.print("Opzione:");
     }
     public int mainMenu(){
         do {
@@ -275,6 +274,7 @@ public class Cli {
             System.out.print("Fase: ");
             FaseStella fase = FaseStella.valueOf(ConsoleRead.readNotBlankString());
 
+            this.listGalassie();
             System.out.print("ID Galassia: ");
             int idGal = ConsoleRead.readPositiveInt();
 
@@ -308,6 +308,7 @@ public class Cli {
             System.out.print("Temperatura: ");
             int temp = ConsoleRead.readPositiveInt();
 
+            this.listGalassie();
             System.out.print("ID Galassia: ");
             int idGal = ConsoleRead.readPositiveInt();
 
@@ -323,7 +324,7 @@ public class Cli {
         } while (true);
     }
 
-    public void addGalassia() throws SQLException, DuplicateException {
+    public void addGalassia() {
         do {
             System.out.print("ID: ");
             int id = ConsoleRead.readIntGreaterThan(0);
@@ -349,7 +350,7 @@ public class Cli {
         } while (true);
     }
 
-    public void addEventoCosmico() throws SQLException, DuplicateException {
+    public void addEventoCosmico() {
         do {
             System.out.print("ID Evento: ");
             int id = ConsoleRead.readIntGreaterThan(0);
@@ -367,6 +368,7 @@ public class Cli {
             System.out.print("Ora (HH:MM): ");
             LocalTime ora = LocalTime.parse(ConsoleRead.readNotBlankString());
 
+            this.listStelle();
             System.out.print("ID Stella: ");
             int idStella = ConsoleRead.readPositiveInt();
 
@@ -390,6 +392,7 @@ public class Cli {
     }
 
     public void removeStella() {
+    	this.listStelle();
         System.out.print("ID Stella da rimuovere: ");
         int id = ConsoleRead.readIntGreaterThan(0);
 
@@ -411,6 +414,7 @@ public class Cli {
     }
 
     public void removePianeta() {
+    	this.listPianeti();
         System.out.print("ID Pianeta da rimuovere: ");
         int id = ConsoleRead.readIntGreaterThan(0);
 
@@ -432,6 +436,7 @@ public class Cli {
     }
 
     public void removeGalassia() {
+    	this.listGalassie();
         System.out.print("ID Galassia da rimuovere: ");
         int id = ConsoleRead.readIntGreaterThan(0);
 
@@ -453,6 +458,7 @@ public class Cli {
     }
 
     public void removeEventoCosmico() {
+    	this.listEventiCosmici();
         System.out.print("ID Evento Cosmico da rimuovere: ");
         int id = ConsoleRead.readIntGreaterThan(0);
 
@@ -484,8 +490,7 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseStelleToTable(stelle, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {
-        }
+        } catch (InvalidSeparatorException e) {}
     }
 
     public void listPianeti() {
@@ -498,8 +503,7 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parsePianetiToTable(pianeti, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {
-        }
+        } catch (InvalidSeparatorException e) {}
     }
 
     public void listGalassie() {
@@ -512,8 +516,7 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseGalassieToTable(galassie, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {
-        }
+        } catch (InvalidSeparatorException e) {}
     }
 
     public void listEventiCosmici() {
@@ -526,8 +529,7 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseECToTable(eventi, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {
-        }
+        } catch (InvalidSeparatorException e) {}
     }
 
     // ================= SUPPORTO ENUMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM =================
@@ -554,7 +556,14 @@ public class Cli {
 
     private String[] getAppInfo() {
         try {
-            return PropertiesRead.readBaseInfo(g.getCfg_path());
+        	String[]out = new String[6];
+        	out[0] = PropertiesRead.readBaseInfo(g.getCfg_path())[0];
+        	out[1] = PropertiesRead.readBaseInfo(g.getCfg_path())[1];
+        	out[2] = PropertiesRead.readBaseInfo(g.getCfg_path())[2];
+        	out[3] = PropertiesRead.readBaseInfo(g.getCfg_path())[3];
+        	out[4] = PropertiesRead.readBaseInfo(g.getCfg_path())[4];
+        	out[5] = PropertiesRead.readInfo(g.getCfg_path(),"doanimation");
+            return out;
         } catch (IOException e) {
             System.out.println("Errore di lettura del file config.properties.");
             return null;
