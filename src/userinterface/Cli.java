@@ -244,7 +244,7 @@ public class Cli {
             }
         }while(true);
     }
-    public int eventicosmiciMenuPage(){
+    public int eventicosmiciMenu(){
         do {
             printEventoCosmicoMenuPage();
             int opzione = ConsoleRead.readInt();
