@@ -24,7 +24,7 @@ import myexceptions.DuplicateException;
 import utils.TableFormatter;
 
 public class Cli {
-	private GestUniverso g = new GestUniverso();
+    private GestUniverso g = new GestUniverso();
     String[] app_info = getAppInfo();
     private String app_name = app_info[0];
 
@@ -76,8 +76,8 @@ public class Cli {
             }
         }while(true);
     }
-    
-    ///////////////INSERIMENTIIIIIIIIII
+
+	// ================= INSERIMENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
     public void addStella() {
     	do {
     		System.out.print("ID: ");
@@ -362,3 +362,4 @@ public class Cli {
 		}
     }
 }
+
