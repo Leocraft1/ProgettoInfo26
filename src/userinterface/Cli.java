@@ -91,10 +91,10 @@ public class Cli {
         System.out.println("           ________---                   ---________        AGGUANCIO RIUSCITO!");
         System.out.println("      ____---           _____________           ---____");
         System.out.println("   __--               .-\"             \"-.               --__");
-        System.out.println("  /                 .'     S A T U R N O     '.                 \\");
-        System.out.println(" |                 /        ORBITA STABILE        \\                 |");
-        System.out.println("  \\                 '.                           .'                 /");
-        System.out.println("   --__               '-._                   _.-'               __--");
+        System.out.println("  /                 .'     S A T U R N O    '.                 \\");
+        System.out.println(" |                 /                           \\                 |");
+        System.out.println("  \\               '.                         .'                 /");
+        System.out.println("   --__              '-._                  _.-'               __--");
         System.out.println("        ---____              \"\"\"\"\"\"\"\"\"\"\"              ____---");
         System.out.println("                ---___________         ___________---");
         System.out.println("                            -----------------");
