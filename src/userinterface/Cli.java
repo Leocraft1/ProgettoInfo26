@@ -256,6 +256,61 @@ public class Cli {
 
         System.out.println("Opzione:");
     }
+    public int mainMenu(){
+        do {
+            printMainMenuPage();
+            int opzione = ConsoleRead.readInt();
+            if(opzione<0||opzione>4){
+                System.out.println("L'opzione "+opzione+" non e' valida");
+            }else{
+                return opzione;
+            }
+        }while(true);
+    }
+    public int stelleMenu(){
+        do {
+            printStelleMenuPage();
+            int opzione = ConsoleRead.readInt();
+            if(opzione<0||opzione>3){
+                System.out.println("L'opzione "+opzione+" non e' valida");
+            }else{
+                return opzione;
+            }
+        }while(true);
+    }
+    public int pianetiMenu(){
+    do {
+            printPianetiMenuPage();
+            int opzione = ConsoleRead.readInt();
+            if(opzione<0||opzione>3){
+                System.out.println("L'opzione "+opzione+" non e' valida");
+            }else{
+                return opzione;
+            }
+        }while(true);
+}
+    public int galassieMenu(){
+        do {
+            printGalassieMenuPage();
+            int opzione = ConsoleRead.readInt();
+            if(opzione<0||opzione>3){
+                System.out.println("L'opzione "+opzione+" non e' valida");
+            }else{
+                return opzione;
+            }
+        }while(true);
+    }
+    public int eventicosmiciMenuPage(){
+        do {
+            printEventoCosmicoMenuPage();
+            int opzione = ConsoleRead.readInt();
+            if(opzione<0||opzione>3){
+                System.out.println("L'opzione "+opzione+" non e' valida");
+            }else{
+                return opzione;
+            }
+        }while(true);
+    }
 
 	// ================= INSERIMENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
     public void addStella() {
