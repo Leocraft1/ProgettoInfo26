@@ -118,6 +118,186 @@ public class Cli {
             }
         } while (true);
     }
+    public void printMainMenuPage(){
+
+
+
+        System.out.println("############## MENU' PRINCIPALE ##############");
+
+
+        System.out.println("Seleziona un'opzione:");
+
+
+        System.out.println("");
+
+
+        System.out.println("1) Menu' stelle");
+
+
+        System.out.println("2) Menu' pianeti");
+
+
+        System.out.println("3) Menu' galassie");
+
+
+        System.out.println("4) Menu' eventi cosmici");
+
+
+        System.out.println("");
+
+
+        System.out.println("0) Esci");
+
+
+        System.out.println("##############################################");
+
+
+        System.out.println("Opzione:");
+
+
+    }
+
+
+    public void printStelleMenuPage(){
+
+
+        System.out.println("*************** MENU' STELLE *****************");
+
+
+        System.out.println("Seleziona un'opzione:");
+
+
+        System.out.println("");
+
+
+        System.out.println("1) Lista stelle");
+
+
+        System.out.println("2) Crea stella");
+
+
+        System.out.println("3) Rimuovi stella");
+
+
+        System.out.println("");
+
+
+        System.out.println("0) Esci");
+
+
+        System.out.println("**********************************************");
+
+
+        System.out.println("Opzione:");
+
+
+    }
+
+
+    public void printPianetiMenuPage(){
+
+
+        System.out.println("<<<<<<<<<<<<<<<< MENU' PIANETI >>>>>>>>>>>>>>>>");
+
+
+        System.out.println("Seleziona un'opzione:");
+
+
+        System.out.println("");
+
+
+        System.out.println("1) Lista pianeti");
+
+
+        System.out.println("2) Crea pianeta");
+
+
+        System.out.println("3) Rimuovi pianeta");
+
+
+        System.out.println("");
+
+
+        System.out.println("0) Esci");
+
+
+        System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+
+
+        System.out.println("Opzione:");
+
+
+}
+
+
+    public void printGalassieMenuPage(){
+
+
+        System.out.println("================ MENU' GALASSIE ================");
+
+
+        System.out.println("Seleziona un'opzione:");
+
+
+        System.out.println("");
+
+
+        System.out.println("1) Lista galassie");
+
+
+        System.out.println("2) Crea galassia");
+
+
+        System.out.println("3) Rimuovi galassia");
+
+
+        System.out.println("");
+
+
+        System.out.println("0) Esci");
+
+
+        System.out.println("==============================================");
+
+
+        System.out.println("Opzione:");
+
+
+    }
+
+
+    public void printEventoCosmicoMenuPage(){
+
+
+        System.out.println("++++++++++++ MENU' EVENTI COSMICI ++++++++++++");
+
+
+        System.out.println("Seleziona un'opzione:");
+
+
+        System.out.println("");
+
+
+        System.out.println("1) Lista eventi cosmici");
+
+
+        System.out.println("2) Crea evento cosmico");
+
+
+        System.out.println("3) Rimuovi evento cosmico");
+
+
+        System.out.println("");
+
+
+        System.out.println("0) Esci");
+
+
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+
+
+        System.out.println("Opzione:");
+    }
 
     // ================= INSERIMENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
     public void addStella() {
@@ -424,3 +604,4 @@ public class Cli {
         }
     }
 }
+
