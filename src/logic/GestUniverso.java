@@ -15,6 +15,7 @@ import model.enums.*;
 import myexceptions.*;
 
 public class GestUniverso {
+
     private DBConnector dbc;
     private ArrayList<String> tab_names = new ArrayList<>(); //Ordine di nomi di config.properties
     private ArrayList<ArrayList<String>> tab_attr = new ArrayList<>();

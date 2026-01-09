@@ -46,48 +46,63 @@ public class Cli {
 
     public void startMessage() {
         System.out.println("\n--- INIZIALIZZAZIONE MISSIONE RAPIDA ---");
-        pausa(500); // Breve pausa iniziale
+        pausa(700);
 
-        // --- FASE 1: Conto alla rovescia (circa 1.5 secondi) ---
+        // --- FASE 1: Conto alla rovescia ---
         System.out.print("Conto alla rovescia: 3...");
-        pausa(500);
+        pausa(700);
         System.out.print(" 2...");
-        pausa(500);
+        pausa(700);
         System.out.println(" 1...");
-        pausa(500);
+        pausa(700);
         System.out.println(">>> MOTORI AL MASSIMO! DECOLLO! <<<");
 
-        // Definisco il razzo una volta sola
-        String razzo = "      ^\n     / \\\n    | U |\n    | D |\n    | B |\n   /| | |\\\n   * * * *";
+        // Razzo LLCH
+        String razzo
+                = "        ^\n"
+                + "       / \\\n"
+                + "      | L |\n"
+                + "      | L |\n"
+                + "      | C |\n"
+                + "      | H |\n"
+                + "     /|   |\\\n"
+                + "    * * * * *"
+                + "      * * *"
+                + "       * *"
+                + "        *";
 
-        // --- FASE 2: Il Lancio (circa 1 secondo) ---
-        // Questo ciclo stampa righe vuote per dare l'illusione che il razzo salga
+        // --- FASE 2: Lancio ---
         for (int i = 0; i < 5; i++) {
-            // Stampiamo tante righe vuote per "pulire" lo schermo precedente
             System.out.print("\n\n\n\n\n\n\n\n\n\n");
 
-            // Stampiamo righe vuote variabili per spingere il razzo verso l'alto
             for (int spazio = 0; spazio < i * 2; spazio++) {
                 System.out.println("");
             }
             System.out.println(razzo);
-            System.out.println("...Velocita' smodata attivata...");
-            pausa(200); // Pausa molto breve tra i frame per fare un movimento veloce
+            System.out.println("...LLCH IN ASCESA...");
+            pausa(350);
         }
 
-        // --- FASE 3: Arrivo a destinazione (Saturno) ---
-        pausa(500); // Piccola pausa drammatica prima dell'arrivo
-        // "Puliamo" lo schermo un'ultima volta per mostrare l'arrivo
+        // --- FASE 3: Arrivo a Saturno ---
+        pausa(1000);
         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
-        System.out.println("       .    _  .     ");
-        System.out.println("     .  / \\  .      AGGUANCIO RIUSCITO!");
-        System.out.println("    _(\\ /)_         Benvenuti nell'orbita di");
-        System.out.println("     ( / \\ ) .      >>> SATURNO <<<");
-        System.out.println("    . \\_/  .         ");
-        System.out.println("       .             ");
+        System.out.println("                  _______________________                  ");
+        System.out.println("           ________---                   ---________        AGGUANCIO RIUSCITO!");
+        System.out.println("      ____---           _____________           ---____");
+        System.out.println("   __--               .-\"             \"-.               --__");
+        System.out.println("  /                 .'     S A T U R N O     '.                 \\");
+        System.out.println(" |                 /        ORBITA STABILE        \\                 |");
+        System.out.println("  \\                 '.                           .'                 /");
+        System.out.println("   --__               '-._                   _.-'               __--");
+        System.out.println("        ---____              \"\"\"\"\"\"\"\"\"\"\"              ____---");
+        System.out.println("                ---___________         ___________---");
+        System.out.println("                            -----------------");
+        System.out.println("                     === ANELLI DI SATURNO ===");
+        System.out.println("              =======---------------------------=======");
         System.out.println("---------------------------------------------");
-        pausa(1000); // Un secondo per ammirare Saturno prima che parta il resto del programma
+
+        pausa(1600);
         System.out.println("Benvenuto in: " + app_name.toUpperCase());
     }
 
