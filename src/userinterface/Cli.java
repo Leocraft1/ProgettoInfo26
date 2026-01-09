@@ -24,6 +24,7 @@ import myexceptions.DuplicateException;
 import utils.TableFormatter;
 
 public class Cli {
+
     private GestUniverso g = new GestUniverso();
     String[] app_info = getAppInfo();
     private String app_name = app_info[0];
@@ -44,8 +45,8 @@ public class Cli {
     }
 
     public void startMessage() {
-    	if(app_info[5].equals("true")) {
-    		System.out.println("\n--- INIZIALIZZAZIONE MISSIONE RAPIDA ---");
+        if (app_info[5].equals("true")) {
+            System.out.println("\n--- INIZIALIZZAZIONE MISSIONE RAPIDA ---");
             pausa(700);
 
             // --- FASE 1: Conto alla rovescia ---
@@ -102,7 +103,7 @@ public class Cli {
             System.out.println("---------------------------------------------");
 
             pausa(100);
-    	}
+        }
         System.out.println("Benvenuto in: " + app_name.toUpperCase());
     }
 
@@ -199,60 +200,65 @@ public class Cli {
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.print("Opzione:");
     }
-    public int mainMenu(){
+
+    public int mainMenu() {
         do {
             printMainMenuPage();
             int opzione = ConsoleRead.readInt();
-            if(opzione<0||opzione>4){
-                System.out.println("L'opzione "+opzione+" non e' valida");
-            }else{
+            if (opzione < 0 || opzione > 4) {
+                System.out.println("L'opzione " + opzione + " non e' valida");
+            } else {
                 return opzione;
             }
-        }while(true);
+        } while (true);
     }
-    public int stelleMenu(){
+
+    public int stelleMenu() {
         do {
             printStelleMenuPage();
             int opzione = ConsoleRead.readInt();
-            if(opzione<0||opzione>3){
-                System.out.println("L'opzione "+opzione+" non e' valida");
-            }else{
+            if (opzione < 0 || opzione > 9) {
+                System.out.println("L'opzione " + opzione + " non e' valida");
+            } else {
                 return opzione;
             }
-        }while(true);
+        } while (true);
     }
-    public int pianetiMenu(){
-    do {
+
+    public int pianetiMenu() {
+        do {
             printPianetiMenuPage();
             int opzione = ConsoleRead.readInt();
-            if(opzione<0||opzione>3){
-                System.out.println("L'opzione "+opzione+" non e' valida");
-            }else{
+            if (opzione < 0 || opzione > 9) {
+                System.out.println("L'opzione " + opzione + " non e' valida");
+            } else {
                 return opzione;
             }
-        }while(true);
-}
-    public int galassieMenu(){
+        } while (true);
+    }
+
+    public int galassieMenu() {
         do {
             printGalassieMenuPage();
             int opzione = ConsoleRead.readInt();
-            if(opzione<0||opzione>3){
-                System.out.println("L'opzione "+opzione+" non e' valida");
-            }else{
+            if (opzione < 0 || opzione > 9) {
+                System.out.println("L'opzione " + opzione + " non e' valida");
+            } else {
                 return opzione;
             }
-        }while(true);
+        } while (true);
     }
-    public int eventicosmiciMenu(){
+
+    public int eventicosmiciMenu() {
         do {
             printEventoCosmicoMenuPage();
             int opzione = ConsoleRead.readInt();
-            if(opzione<0||opzione>3){
-                System.out.println("L'opzione "+opzione+" non e' valida");
-            }else{
+            if (opzione < 0 || opzione > 9) {
+                System.out.println("L'opzione " + opzione + " non e' valida");
+            } else {
                 return opzione;
             }
-        }while(true);
+        } while (true);
     }
 
     // ================= INSERIMENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
@@ -392,7 +398,7 @@ public class Cli {
     }
 
     public void removeStella() {
-    	this.listStelle();
+        this.listStelle();
         System.out.print("ID Stella da rimuovere: ");
         int id = ConsoleRead.readIntGreaterThan(0);
 
@@ -414,7 +420,7 @@ public class Cli {
     }
 
     public void removePianeta() {
-    	this.listPianeti();
+        this.listPianeti();
         System.out.print("ID Pianeta da rimuovere: ");
         int id = ConsoleRead.readIntGreaterThan(0);
 
@@ -436,7 +442,7 @@ public class Cli {
     }
 
     public void removeGalassia() {
-    	this.listGalassie();
+        this.listGalassie();
         System.out.print("ID Galassia da rimuovere: ");
         int id = ConsoleRead.readIntGreaterThan(0);
 
@@ -458,7 +464,7 @@ public class Cli {
     }
 
     public void removeEventoCosmico() {
-    	this.listEventiCosmici();
+        this.listEventiCosmici();
         System.out.print("ID Evento Cosmico da rimuovere: ");
         int id = ConsoleRead.readIntGreaterThan(0);
 
@@ -490,7 +496,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseStelleToTable(stelle, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void listPianeti() {
@@ -503,7 +510,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parsePianetiToTable(pianeti, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void listGalassie() {
@@ -516,7 +524,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseGalassieToTable(galassie, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void listEventiCosmici() {
@@ -529,10 +538,11 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseECToTable(eventi, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
-    // ================= SUPPORTO ENUMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM =================
+    // ================= ENUMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM =================
     private void stampaFasiStella() {
         System.out.println("Fasi disponibili:");
         for (FaseStella f : FaseStella.values()) {
@@ -554,15 +564,319 @@ public class Cli {
         }
     }
 
+    public void stellePerFase() {
+        stampaFasiStella();
+        System.out.print("Fase: ");
+        FaseStella fase = FaseStella.valueOf(ConsoleRead.readNotBlankString());
+
+        try {
+            var lista = g.getStelleByFase(fase);
+            ConsolePrint.printTable(
+                    TableFormatter.parseStelleToTable(lista, g.getTabAttr()), "*"
+            );
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void stellePerMinTemperatura() {
+        System.out.print("Temperatura minima: ");
+        int t = ConsoleRead.readPositiveInt();
+
+        try {
+            var lista = g.getStelleByMinTemperatura(t);
+            ConsolePrint.printTable(
+                    TableFormatter.parseStelleToTable(lista, g.getTabAttr()), "*"
+            );
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void stellaPiuCalda() {
+        try {
+            ArrayList<Stella> lista = g.getStellaPiuCalda();
+            ConsolePrint.printTable(
+                    TableFormatter.parseStelleToTable(lista, g.getTabAttr()), "*"
+            );
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void stelleSenzaGalassia() {
+        try {
+            var lista = g.getStelleSenzaGalassia();
+            ConsolePrint.printTable(
+                    TableFormatter.parseStelleToTable(lista, g.getTabAttr()), "*"
+            );
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void countStelleInGalassia() {
+        System.out.print("ID Galassia: ");
+        int id = ConsoleRead.readPositiveInt();
+
+        try {
+            int n = g.countStelleInGalassia(id);
+            System.out.println("Numero stelle: " + n);
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        }
+    }
+
+    public void pianetiPerTipo() {
+        stampaTipiPianeta();
+        System.out.print("Tipo: ");
+        TipoPianeta tipo = TipoPianeta.valueOf(ConsoleRead.readNotBlankString());
+
+        try {
+            ArrayList<Pianeta> lista = g.getPianetiByTipo(tipo);
+            if (lista.isEmpty()) {
+                System.out.println("Nessun pianeta trovato");
+                return;
+            }
+            ConsolePrint.printTable(
+                    TableFormatter.parsePianetiToTable(lista, g.getTabAttr()), "*");
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void pianetiPerRangeTemperatura() {
+        System.out.print("Temperatura minima: ");
+        int min = ConsoleRead.readPositiveInt();
+        System.out.print("Temperatura massima: ");
+        int max = ConsoleRead.readPositiveInt();
+
+        try {
+            ArrayList<Pianeta> lista = g.getPianetiByTemperaturaRange(min, max);
+            if (lista.isEmpty()) {
+                System.out.println("Nessun pianeta trovato");
+                return;
+            }
+            ConsolePrint.printTable(
+                    TableFormatter.parsePianetiToTable(lista, g.getTabAttr()), "*");
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void pianetaPiuCaldo() {
+        try {
+            ArrayList<Pianeta> lista = g.getPianetaPiuCaldo();
+            if (lista.isEmpty()) {
+                System.out.println("Nessun pianeta trovato");
+                return;
+            }
+            ConsolePrint.printTable(
+                    TableFormatter.parsePianetiToTable(lista, g.getTabAttr()), "*");
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void countPianetiInGalassia() {
+        System.out.print("ID Galassia: ");
+        int id = ConsoleRead.readPositiveInt();
+
+        try {
+            int n = g.countPianetiInGalassia(id);
+            System.out.println("Numero pianeti: " + n);
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        }
+    }
+
+    public void pianetiSenzaSistema() {
+        try {
+            ArrayList<Pianeta> lista = g.getPianetiSenzaSistema();
+            if (lista.isEmpty()) {
+                System.out.println("Nessun pianeta trovato");
+                return;
+            }
+            ConsolePrint.printTable(
+                    TableFormatter.parsePianetiToTable(lista, g.getTabAttr()), "*");
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void eventiPerTipo() {
+        stampaTipiEventoCosmico();
+        System.out.print("Tipo: ");
+        TipoEventoCosmico tipo = TipoEventoCosmico.valueOf(ConsoleRead.readNotBlankString());
+
+        try {
+            ArrayList<EventoCosmico> lista = g.getEventiByTipo(tipo);
+            if (lista.isEmpty()) {
+                System.out.println("Nessun evento trovato");
+                return;
+            }
+            ConsolePrint.printTable(
+                    TableFormatter.parseECToTable(lista, g.getTabAttr()), "*");
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void eventiDopoData() {
+        System.out.print("Data (YYYY-MM-DD): ");
+        LocalDate d = LocalDate.parse(ConsoleRead.readNotBlankString());
+
+        try {
+            ArrayList<EventoCosmico> lista = g.getEventiDopoData(d);
+            if (lista.isEmpty()) {
+                System.out.println("Nessun evento trovato");
+                return;
+            }
+            ConsolePrint.printTable(
+                    TableFormatter.parseECToTable(lista, g.getTabAttr()), "*");
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void countEventiPerStella() {
+        System.out.print("ID Stella: ");
+        int id = ConsoleRead.readPositiveInt();
+
+        try {
+            int n = g.countEventiByStella(id);
+            System.out.println("Numero eventi: " + n);
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        }
+    }
+
+    public void eventiSenzaStella() {
+        try {
+            ArrayList<EventoCosmico> lista = g.getEventiSenzaStella();
+            if (lista.isEmpty()) {
+                System.out.println("Nessun evento trovato");
+                return;
+            }
+            ConsolePrint.printTable(
+                    TableFormatter.parseECToTable(lista, g.getTabAttr()), "*");
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void galassiePerTipo() {
+        System.out.print("Tipo galassia: ");
+        String tipo = ConsoleRead.readNotBlankString();
+
+        try {
+            ArrayList<Galassia> lista = g.getGalassieByTipo(tipo);
+            if (lista.isEmpty()) {
+                System.out.println("Nessuna galassia trovata");
+                return;
+            }
+            ConsolePrint.printTable(
+                    TableFormatter.parseGalassieToTable(lista, g.getTabAttr()), "*");
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void galassiePerMinMassa() {
+        System.out.print("Massa minima: ");
+        int massa = ConsoleRead.readPositiveInt();
+
+        try {
+            ArrayList<Galassia> lista = g.getGalassieByMinMassa(massa);
+            if (lista.isEmpty()) {
+                System.out.println("Nessuna galassia trovata");
+                return;
+            }
+            ConsolePrint.printTable(
+                    TableFormatter.parseGalassieToTable(lista, g.getTabAttr()), "*");
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void galassiaPiuPesante() {
+        try {
+            ArrayList<Galassia> lista = g.getGalassiaPiuPesante();
+            if (lista.isEmpty()) {
+                System.out.println("Nessuna galassia trovata");
+                return;
+            }
+            ConsolePrint.printTable(
+                    TableFormatter.parseGalassieToTable(lista, g.getTabAttr()), "*");
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void countStelleInGalassiaCLI() {
+        System.out.print("ID Galassia: ");
+        int id = ConsoleRead.readPositiveInt();
+
+        try {
+            int n = g.countStelleInGalassia(id);
+            System.out.println("Numero stelle nella galassia: " + n);
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        }
+    }
+
+    public void galassieSenzaStelle() {
+        try {
+            ArrayList<Galassia> lista = g.getGalassieSenzaStelle();
+            if (lista.isEmpty()) {
+                System.out.println("Nessuna galassia trovata");
+                return;
+            }
+            ConsolePrint.printTable(
+                    TableFormatter.parseGalassieToTable(lista, g.getTabAttr()), "*");
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
+    public void ultimoEventoCosmico() {
+        try {
+            EventoCosmico ec = g.getUltimoEventoCosmico();
+            ArrayList<EventoCosmico> lista = new ArrayList<>();
+            lista.add(ec); // mettiamo l'evento in una lista così possiamo usare il TableFormatter
+            ConsolePrint.printTable(
+                    TableFormatter.parseECToTable(lista, g.getTabAttr()), "*"
+            );
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        } catch (InvalidSeparatorException e) {
+        }
+    }
+
     private String[] getAppInfo() {
         try {
-        	String[]out = new String[6];
-        	out[0] = PropertiesRead.readBaseInfo(g.getCfg_path())[0];
-        	out[1] = PropertiesRead.readBaseInfo(g.getCfg_path())[1];
-        	out[2] = PropertiesRead.readBaseInfo(g.getCfg_path())[2];
-        	out[3] = PropertiesRead.readBaseInfo(g.getCfg_path())[3];
-        	out[4] = PropertiesRead.readBaseInfo(g.getCfg_path())[4];
-        	out[5] = PropertiesRead.readInfo(g.getCfg_path(),"doanimation");
+            String[] out = new String[6];
+            out[0] = PropertiesRead.readBaseInfo(g.getCfg_path())[0];
+            out[1] = PropertiesRead.readBaseInfo(g.getCfg_path())[1];
+            out[2] = PropertiesRead.readBaseInfo(g.getCfg_path())[2];
+            out[3] = PropertiesRead.readBaseInfo(g.getCfg_path())[3];
+            out[4] = PropertiesRead.readBaseInfo(g.getCfg_path())[4];
+            out[5] = PropertiesRead.readInfo(g.getCfg_path(), "doanimation");
             return out;
         } catch (IOException e) {
             System.out.println("Errore di lettura del file config.properties.");

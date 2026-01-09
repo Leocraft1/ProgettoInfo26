@@ -293,23 +293,25 @@ public class GestUniverso {
      *
      * @return
      * @throws SQLException
-     * @throws ParsingException
      */
-    public Stella getStellaPiuCalda() throws SQLException {
+    public ArrayList<Stella> getStellaPiuCalda() throws SQLException {
         ResultSet rs = dbc.query(
                 "SELECT * FROM " + tab_names.get(0)
                 + " ORDER BY temperatura DESC"
         );
 
-        rs.next();
-        return new Stella(
-                rs.getInt("idStella"),
-                rs.getString("nome"),
-                rs.getString("sistema"),
-                rs.getInt("temperatura"),
-                FaseStella.valueOf(rs.getString("fase")),
-                rs.getInt("idGalassia")
-        );
+        ArrayList<Stella> lista = new ArrayList<>();
+        if (rs.next()) {
+            lista.add(new Stella(
+                    rs.getInt("idStella"),
+                    rs.getString("nome"),
+                    rs.getString("sistema"),
+                    rs.getInt("temperatura"),
+                    FaseStella.valueOf(rs.getString("fase")),
+                    rs.getInt("idGalassia")
+            ));
+        }
+        return lista;
     }
 
     /**
@@ -384,19 +386,22 @@ public class GestUniverso {
      * @return
      * @throws SQLException
      */
-    public Galassia getGalassiaPiuPesante() throws SQLException {
+    public ArrayList<Galassia> getGalassiaPiuPesante() throws SQLException {
         ResultSet rs = dbc.query(
                 "SELECT * FROM " + tab_names.get(2)
                 + " ORDER BY massa DESC"
         );
 
-        rs.next();
-        return new Galassia(
-                rs.getInt("idGalassia"),
-                rs.getString("nome"),
-                rs.getString("tipo"),
-                rs.getInt("massa")
-        );
+        ArrayList<Galassia> lista = new ArrayList<>();
+        if (rs.next()) {
+            lista.add(new Galassia(
+                    rs.getInt("idGalassia"),
+                    rs.getString("nome"),
+                    rs.getString("tipo"),
+                    rs.getInt("massa")
+            ));
+        }
+        return lista;
     }
 
     /**
@@ -568,7 +573,7 @@ public class GestUniverso {
         }
         return out;
     }
-    
+
     private ArrayList<Pianeta> getPianetiFromRS(ResultSet rs) throws SQLException {
         ArrayList<Pianeta> out = new ArrayList<>();
 
@@ -644,15 +649,6 @@ public class GestUniverso {
         return rs.next();
     }
 
-    public ArrayList<Stella> getStelleByGalassia(int idGalassia) throws SQLException {
-        ResultSet rs = dbc.query(
-                "SELECT * FROM " + tab_names.get(0)
-                + " WHERE idGalassia = ?",
-                idGalassia
-        );
-        return getStelleFromRS(rs);
-    }
-
     public ArrayList<Pianeta> getPianetiAbitabili() throws SQLException {
         ResultSet rs = dbc.query(
                 "SELECT * FROM " + tab_names.get(1)
@@ -678,5 +674,25 @@ public class GestUniverso {
                 minTemp
         );
         return getPianetiFromRS(rs);
+    }
+
+    public ArrayList<Pianeta> getPianetaPiuCaldo() throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(1) + " ORDER BY temperatura DESC"
+        );
+
+        ArrayList<Pianeta> lista = new ArrayList<>();
+        ArrayList<Pianeta> tmp = getPianetiFromRS(rs); // lista completa dal RS
+        if (!tmp.isEmpty()) {
+            lista.add(tmp.get(0)); // il più caldo
+        }
+        return lista;
+    }
+
+    public ArrayList<EventoCosmico> getEventiSenzaStella() throws SQLException {
+        ResultSet rs = dbc.query(
+                "SELECT * FROM " + tab_names.get(3) + " WHERE idStella IS NULL"
+        );
+        return getECFromRS(rs);
     }
 }
