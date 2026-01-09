@@ -45,19 +45,59 @@ public class Cli {
     }
 
     public void startMessage() {
-        System.out.println(
-                "                      /\\         \n"
-                + "                    .'  '.        \n"
-                + "                   /======\\      \n"
-                + "                  ;:.  _   ;      \n"
-                + "                  |:. (_)  |      \n"
-                + "                  |:.  _   |      \n"
-                + "                  |:. (_)  |      \n"
-                + "                  ;:.      ;      \n"
-                + "                .' \\:.    / `.   \n"
-                + "               / .-'':._.'`-. \\  \n"
-                + "               |/    /||\\    \\| \n"
-                + "Benvenuto in:    " + app_name.toUpperCase());
+        System.out.println("\n--- INIZIALIZZAZIONE MISSIONE RAPIDA ---");
+        pausa(500); // Breve pausa iniziale
+
+        // --- FASE 1: Conto alla rovescia (circa 1.5 secondi) ---
+        System.out.print("Conto alla rovescia: 3...");
+        pausa(500);
+        System.out.print(" 2...");
+        pausa(500);
+        System.out.println(" 1...");
+        pausa(500);
+        System.out.println(">>> MOTORI AL MASSIMO! DECOLLO! <<<");
+
+        // Definisco il razzo una volta sola
+        String razzo = "      ^\n     / \\\n    | U |\n    | D |\n    | B |\n   /| | |\\\n   * * * *";
+
+        // --- FASE 2: Il Lancio (circa 1 secondo) ---
+        // Questo ciclo stampa righe vuote per dare l'illusione che il razzo salga
+        for (int i = 0; i < 5; i++) {
+            // Stampiamo tante righe vuote per "pulire" lo schermo precedente
+            System.out.print("\n\n\n\n\n\n\n\n\n\n");
+
+            // Stampiamo righe vuote variabili per spingere il razzo verso l'alto
+            for (int spazio = 0; spazio < i * 2; spazio++) {
+                System.out.println("");
+            }
+            System.out.println(razzo);
+            System.out.println("...Velocita' smodata attivata...");
+            pausa(200); // Pausa molto breve tra i frame per fare un movimento veloce
+        }
+
+        // --- FASE 3: Arrivo a destinazione (Saturno) ---
+        pausa(500); // Piccola pausa drammatica prima dell'arrivo
+        // "Puliamo" lo schermo un'ultima volta per mostrare l'arrivo
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        System.out.println("       .    _  .     ");
+        System.out.println("     .  / \\  .      AGGUANCIO RIUSCITO!");
+        System.out.println("    _(\\ /)_         Benvenuti nell'orbita di");
+        System.out.println("     ( / \\ ) .      >>> SATURNO <<<");
+        System.out.println("    . \\_/  .         ");
+        System.out.println("       .             ");
+        System.out.println("---------------------------------------------");
+        pausa(1000); // Un secondo per ammirare Saturno prima che parta il resto del programma
+        System.out.println("Benvenuto in: " + app_name.toUpperCase());
+    }
+
+// --- Metodo di supporto PAUSA (se ce l'hai già nella classe, non ricopiarlo) ---
+    private void pausa(int millisecondi) {
+        try {
+            Thread.sleep(millisecondi);
+        } catch (InterruptedException e) {
+            // Ignora eccezioni
+        }
     }
 
     public void testDBConnection() {
