@@ -323,7 +323,7 @@ public class GestUniverso {
      */
     public ArrayList<EventoCosmico> getEventiByTipo(TipoEventoCosmico tipo) throws SQLException {
         ResultSet rs = dbc.query(
-                "SELECT * FROM " + tab_names.get(1) + " WHERE tipo = ?",
+                "SELECT * FROM " + tab_names.get(3) + " WHERE tipo = ?",
                 tipo.toString()
         );
 
@@ -339,7 +339,7 @@ public class GestUniverso {
      */
     public ArrayList<EventoCosmico> getEventiDopoData(LocalDate data) throws SQLException {
         ResultSet rs = dbc.query(
-                "SELECT * FROM " + tab_names.get(1) + " WHERE dataEvento > ?",
+                "SELECT * FROM " + tab_names.get(3) + " WHERE dataEvento > ?",
                 data
         );
 
@@ -355,7 +355,7 @@ public class GestUniverso {
      */
     public int countEventiByStella(int idStella) throws SQLException {
         ResultSet rs = dbc.query(
-                "SELECT COUNT(*) AS totale FROM " + tab_names.get(1)
+                "SELECT COUNT(*) AS totale FROM " + tab_names.get(3)
                 + " WHERE idStella = ?",
                 idStella
         );
@@ -429,7 +429,7 @@ public class GestUniverso {
      */
     public ArrayList<Pianeta> getPianetiByTipo(TipoPianeta tipo) throws SQLException {
         ResultSet rs = dbc.query(
-                "SELECT * FROM " + tab_names.get(3) + " WHERE tipo = ?",
+                "SELECT * FROM " + tab_names.get(1) + " WHERE tipo = ?",
                 tipo.toString()
         );
 
@@ -446,7 +446,7 @@ public class GestUniverso {
      */
     public ArrayList<Pianeta> getPianetiByTemperaturaRange(int minTemp, int maxTemp) throws SQLException {
         ResultSet rs = dbc.query(
-                "SELECT * FROM " + tab_names.get(3)
+                "SELECT * FROM " + tab_names.get(1)
                 + " WHERE temperatura BETWEEN ? AND ?",
                 minTemp, maxTemp
         );
@@ -463,7 +463,7 @@ public class GestUniverso {
      */
     public ArrayList<Pianeta> getPianetiByGalassia(int idGalassia) throws SQLException {
         ResultSet rs = dbc.query(
-                "SELECT * FROM " + tab_names.get(3) + " WHERE idGalassia = ?",
+                "SELECT * FROM " + tab_names.get(1) + " WHERE idGalassia = ?",
                 idGalassia
         );
 
@@ -493,7 +493,7 @@ public class GestUniverso {
      */
     public ArrayList<Pianeta> getPianetiSenzaSistema() throws SQLException {
         ResultSet rs = dbc.query(
-                "SELECT * FROM " + tab_names.get(3) + " WHERE sistema IS NULL"
+                "SELECT * FROM " + tab_names.get(1) + " WHERE sistema IS NULL"
         );
 
         return getPianetiFromRS(rs);
@@ -525,7 +525,7 @@ public class GestUniverso {
      */
     public EventoCosmico getUltimoEventoCosmico() throws SQLException {
         ResultSet rs = dbc.query(
-                "SELECT * FROM " + tab_names.get(1)
+                "SELECT * FROM " + tab_names.get(3)
                 + " ORDER BY dataEvento DESC, oraEvento DESC"
         );
 

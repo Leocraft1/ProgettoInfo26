@@ -229,7 +229,7 @@ public class Cli {
         do {
             printStelleMenuPage();
             int opzione = ConsoleRead.readInt();
-            if (opzione < 0 || opzione > 9) {
+            if (opzione < 0 || opzione > 8) {
                 System.out.println("L'opzione " + opzione + " non e' valida");
             } else {
                 return opzione;
@@ -241,7 +241,7 @@ public class Cli {
         do {
             printPianetiMenuPage();
             int opzione = ConsoleRead.readInt();
-            if (opzione < 0 || opzione > 9) {
+            if (opzione < 0 || opzione > 8) {
                 System.out.println("L'opzione " + opzione + " non e' valida");
             } else {
                 return opzione;
@@ -253,7 +253,7 @@ public class Cli {
         do {
             printGalassieMenuPage();
             int opzione = ConsoleRead.readInt();
-            if (opzione < 0 || opzione > 9) {
+            if (opzione < 0 || opzione > 8) {
                 System.out.println("L'opzione " + opzione + " non e' valida");
             } else {
                 return opzione;
@@ -265,7 +265,7 @@ public class Cli {
         do {
             printEventoCosmicoMenuPage();
             int opzione = ConsoleRead.readInt();
-            if (opzione < 0 || opzione > 9) {
+            if (opzione < 0 || opzione > 8) {
                 System.out.println("L'opzione " + opzione + " non e' valida");
             } else {
                 return opzione;
@@ -598,6 +598,31 @@ public class Cli {
         }
     }
 
+    private void stampaTipiGalassia() {
+        try {
+            ArrayList<Galassia> galassie = g.getGalassie();
+            if (galassie.isEmpty()) {
+                System.out.println("Nessuna galassia presente.");
+                return;
+            }
+
+            // Creiamo una lista di tipi unici
+            ArrayList<String> tipi = new ArrayList<>();
+            for (Galassia gxy : galassie) {
+                if (!tipi.contains(gxy.getTipo())) {
+                    tipi.add(gxy.getTipo());
+                }
+            }
+
+            System.out.println("Tipi di galassie disponibili:");
+            for (String t : tipi) {
+                System.out.println("- " + t);
+            }
+        } catch (SQLException e) {
+            System.out.println("Errore DB.");
+        }
+    }
+
     public void stellePerFase() {
         stampaFasiStella();
         System.out.print("Fase: ");
@@ -644,6 +669,10 @@ public class Cli {
     public void stelleSenzaGalassia() {
         try {
             var lista = g.getStelleSenzaGalassia();
+            if (lista.isEmpty()) {
+                System.out.println("Non ci sono stelle senza galassia.");
+                return;
+            }
             ConsolePrint.printTable(
                     TableFormatter.parseStelleToTable(lista, g.getTabAttr()), "*"
             );
@@ -812,6 +841,7 @@ public class Cli {
 
     public void galassiePerTipo() {
         System.out.print("Tipo galassia: ");
+        stampaTipiGalassia(); // mostra i tipi prima
         String tipo = ConsoleRead.readNotBlankString();
 
         try {
