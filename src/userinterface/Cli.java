@@ -151,54 +151,66 @@ public class Cli {
 
     public void printStelleMenuPage() {
         System.out.println("*************** MENU' STELLE *****************");
-        System.out.println("Seleziona un'opzione:");
-        System.out.println("");
+        System.out.println("Seleziona un'opzione:\n");
         System.out.println("1) Lista stelle");
         System.out.println("2) Crea stella");
         System.out.println("3) Rimuovi stella");
-        System.out.println("");
-        System.out.println("0) Indietro");
+        System.out.println("4) Stelle per fase");
+        System.out.println("5) Stelle per temperatura minima");
+        System.out.println("6) Stella piu' calda");
+        System.out.println("7) Stelle senza galassia");
+        System.out.println("8) Conta stelle in una galassia");
+        System.out.println("\n0) Indietro");
         System.out.println("**********************************************");
-        System.out.print("Opzione:");
+        System.out.print("Opzione: ");
     }
 
     public void printPianetiMenuPage() {
         System.out.println("<<<<<<<<<<<<<<<< MENU' PIANETI >>>>>>>>>>>>>>>>");
-        System.out.println("Seleziona un'opzione:");
-        System.out.println("");
+        System.out.println("Seleziona un'opzione:\n");
         System.out.println("1) Lista pianeti");
         System.out.println("2) Crea pianeta");
         System.out.println("3) Rimuovi pianeta");
-        System.out.println("");
-        System.out.println("0) Indietro");
+        System.out.println("4) Pianeti per tipo");
+        System.out.println("5) Pianeti per range di temperatura");
+        System.out.println("6) Pianeta piu' caldo");
+        System.out.println("7) Pianeti senza sistema");
+        System.out.println("8) Conta pianeti in una galassia");
+        System.out.println("\n0) Indietro");
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-        System.out.print("Opzione:");
+        System.out.print("Opzione: ");
     }
 
     public void printGalassieMenuPage() {
         System.out.println("================ MENU' GALASSIE ================");
-        System.out.println("Seleziona un'opzione:");
-        System.out.println("");
+        System.out.println("Seleziona un'opzione:\n");
         System.out.println("1) Lista galassie");
         System.out.println("2) Crea galassia");
         System.out.println("3) Rimuovi galassia");
-        System.out.println("");
-        System.out.println("0) Indietro");
+        System.out.println("4) Galassie per tipo");
+        System.out.println("5) Galassie per massa minima");
+        System.out.println("6) Galassia piu' pesante");
+        System.out.println("7) Galassie senza stelle");
+        System.out.println("8) Conta stelle in una galassia");
+        System.out.println("\n0) Indietro");
         System.out.println("==============================================");
-        System.out.print("Opzione:");
+        System.out.print("Opzione: ");
     }
 
     public void printEventoCosmicoMenuPage() {
         System.out.println("++++++++++++ MENU' EVENTI COSMICI ++++++++++++");
-        System.out.println("Seleziona un'opzione:");
-        System.out.println("");
+        System.out.println("Seleziona un'opzione:\n");
         System.out.println("1) Lista eventi cosmici");
         System.out.println("2) Crea evento cosmico");
         System.out.println("3) Rimuovi evento cosmico");
-        System.out.println("");
-        System.out.println("0) Indietro");
+        System.out.println("4) Eventi per tipo");
+        System.out.println("5) Eventi dopo una data");
+        System.out.println("6) Eventi senza stella");
+        System.out.println("7) Conta eventi per stella");
+        System.out.println("8) Ultimo evento cosmico");
+        System.out.println("\n0) Indietro");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.print("Opzione:");
+        System.out.print("Opzione: ");
     }
 
     public int mainMenu() {
@@ -262,6 +274,12 @@ public class Cli {
     }
 
     // ================= INSERIMENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
+    private boolean confermaInserimento() {
+        System.out.print("Sei sicuro di voler aggiungere questo elemento? (S/N): ");
+        String s = ConsoleRead.readNotBlankString();
+        return s.equalsIgnoreCase("S");
+    }
+
     public void addStella() {
         do {
             System.out.print("ID: ");
@@ -284,6 +302,10 @@ public class Cli {
             System.out.print("ID Galassia: ");
             int idGal = ConsoleRead.readPositiveInt();
 
+            if (!confermaInserimento()) {
+                System.out.println("Operazione annullata.");
+                return;
+            }
             try {
                 g.addStella(new Stella(id, nome, sistema, temp, fase, idGal));
             } catch (SQLException e) {
@@ -318,6 +340,10 @@ public class Cli {
             System.out.print("ID Galassia: ");
             int idGal = ConsoleRead.readPositiveInt();
 
+            if (!confermaInserimento()) {
+                System.out.println("Operazione annullata.");
+                return;
+            }
             try {
                 g.addPianeta(new Pianeta(id, nome, sistema, tipo, temp, idGal));
             } catch (SQLException e) {
@@ -344,6 +370,10 @@ public class Cli {
             System.out.print("Massa: ");
             int massa = ConsoleRead.readPositiveInt();
 
+            if (!confermaInserimento()) {
+                System.out.println("Operazione annullata.");
+                return;
+            }
             try {
                 g.addGalassia(new Galassia(id, nome, tipo, massa));
             } catch (SQLException e) {
@@ -378,6 +408,10 @@ public class Cli {
             System.out.print("ID Stella: ");
             int idStella = ConsoleRead.readPositiveInt();
 
+            if (!confermaInserimento()) {
+                System.out.println("Operazione annullata.");
+                return;
+            }
             try {
                 g.addEventoCosmico(new EventoCosmico(id, nome, tipo, data, ora, idStella));
             } catch (SQLException e) {
