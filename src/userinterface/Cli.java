@@ -291,7 +291,7 @@ public class Cli {
     public void addStella() {
         do {
             System.out.print("ID: ");
-            int id = ConsoleRead.readIntGreaterThan(0);
+            Integer id = ConsoleRead.readIntGreaterThan(0);
 
             System.out.print("Nome: ");
             String nome = ConsoleRead.readNotBlankString();
@@ -300,7 +300,7 @@ public class Cli {
             String sistema = ConsoleRead.readNotBlankString();
 
             System.out.print("Temperatura: ");
-            int temp = ConsoleRead.readPositiveInt();
+            Integer temp = ConsoleRead.readPositiveInt();
 
             stampaFasiStella();
             System.out.print("Fase: ");
@@ -334,7 +334,7 @@ public class Cli {
     public void addPianeta() {
         do {
             System.out.print("ID: ");
-            int id = ConsoleRead.readIntGreaterThan(0);
+            Integer id = ConsoleRead.readIntGreaterThan(0);
 
             System.out.print("Nome: ");
             String nome = ConsoleRead.readNotBlankString();
@@ -350,11 +350,15 @@ public class Cli {
             TipoPianeta tipo = TipoPianeta.valueOf(ConsoleRead.readNotBlankString());
 
             System.out.print("Temperatura: ");
-            int temp = ConsoleRead.readPositiveInt();
+            Integer temp = ConsoleRead.readPositiveInt();
 
             this.listGalassie();
-            System.out.print("ID Galassia: ");
-            int idGal = ConsoleRead.readPositiveInt();
+            System.out.print("ID Galassia (lascia vuoto se nessuna): ");
+            String idGalInput = readString();
+            Integer idGal = null;
+            if (!idGalInput.isBlank()) {
+                idGal = Integer.parseInt(idGalInput);
+            }
 
             if (!confermaInserimento()) {
                 System.out.println("Operazione annullata.");
@@ -376,7 +380,7 @@ public class Cli {
     public void addEventoCosmico() {
         do {
             System.out.print("ID Evento: ");
-            int id = ConsoleRead.readIntGreaterThan(0);
+            Integer id = ConsoleRead.readIntGreaterThan(0);
 
             System.out.print("Nome: ");
             String nome = ConsoleRead.readNotBlankString();
@@ -392,12 +396,17 @@ public class Cli {
             LocalTime ora = LocalTime.parse(ConsoleRead.readNotBlankString());
 
             this.listStelle();
-            System.out.print("ID Stella (lascia vuoto se nessuna): ");
-            String idStellaInput = readString();
             Integer idStella = null;
-            if (!idStellaInput.isBlank()) {
-                idStella = Integer.parseInt(idStellaInput);
-            }
+            do {
+                System.out.print("ID Stella (OBBLIGATORIO): ");
+                String idStellaInput = readString();
+                if (!idStellaInput.isBlank()) {
+                    idStella = Integer.parseInt(idStellaInput);
+                }
+                if (idStella == null) {
+                    System.out.println("Errore: un Evento Cosmico deve avere una Stella associata!");
+                }
+            } while (idStella == null);
 
             if (!confermaInserimento()) {
                 System.out.println("Operazione annullata.");
@@ -415,6 +424,7 @@ public class Cli {
         } while (true);
     }
 
+// --- Aggiornamento addGalassia ---
     public void addGalassia() {
         do {
             System.out.print("ID: ");
@@ -456,7 +466,7 @@ public class Cli {
     public void removeStella() {
         this.listStelle();
         System.out.print("ID Stella da rimuovere: ");
-        int id = ConsoleRead.readIntGreaterThan(0);
+        Integer id = ConsoleRead.readIntGreaterThan(0);
 
         if (!confermaEliminazione()) {
             System.out.println("Operazione annullata.");
@@ -478,7 +488,7 @@ public class Cli {
     public void removePianeta() {
         this.listPianeti();
         System.out.print("ID Pianeta da rimuovere: ");
-        int id = ConsoleRead.readIntGreaterThan(0);
+        Integer id = ConsoleRead.readIntGreaterThan(0);
 
         if (!confermaEliminazione()) {
             System.out.println("Operazione annullata.");
@@ -500,7 +510,7 @@ public class Cli {
     public void removeGalassia() {
         this.listGalassie();
         System.out.print("ID Galassia da rimuovere: ");
-        int id = ConsoleRead.readIntGreaterThan(0);
+        Integer id = ConsoleRead.readIntGreaterThan(0);
 
         if (!confermaEliminazione()) {
             System.out.println("Operazione annullata.");
@@ -522,7 +532,7 @@ public class Cli {
     public void removeEventoCosmico() {
         this.listEventiCosmici();
         System.out.print("ID Evento Cosmico da rimuovere: ");
-        int id = ConsoleRead.readIntGreaterThan(0);
+        Integer id = ConsoleRead.readIntGreaterThan(0);
 
         if (!confermaEliminazione()) {
             System.out.println("Operazione annullata.");
@@ -630,7 +640,7 @@ public class Cli {
     public void countStelleInGalassiaCLI() {
         this.listGalassie();
         System.out.print("ID Galassia: ");
-        int id = ConsoleRead.readPositiveInt();
+        Integer id = ConsoleRead.readPositiveInt();
 
         try {
             int n = g.countStelleInGalassia(id);
@@ -705,7 +715,7 @@ public class Cli {
 
     public void countStelleInGalassia() {
         System.out.print("ID Galassia: ");
-        int id = ConsoleRead.readPositiveInt();
+        Integer id = ConsoleRead.readPositiveInt();
 
         try {
             int n = g.countStelleInGalassia(id);
@@ -772,7 +782,7 @@ public class Cli {
     public void countPianetiInGalassia() {
         this.listGalassie();
         System.out.print("ID Galassia: ");
-        int id = ConsoleRead.readPositiveInt();
+        Integer id = ConsoleRead.readPositiveInt();
 
         try {
             int n = g.countPianetiInGalassia(id);
@@ -837,7 +847,7 @@ public class Cli {
     public void countEventiPerStella() {
         this.listStelle();
         System.out.print("ID Stella: ");
-        int id = ConsoleRead.readPositiveInt();
+        Integer id = ConsoleRead.readPositiveInt();
 
         try {
             int n = g.countEventiByStella(id);

@@ -17,7 +17,7 @@ public class TableFormatter {
 
         for (int i = 0; i < al.size(); i++) {
             tmp.clear();
-            tmp.add(String.valueOf(al.get(i).getIdStella()));
+            tmp.add(al.get(i).getIdStella() != null ? al.get(i).getIdStella().toString() : "null");
             tmp.add(al.get(i).getNome());
             if (al.get(i).getSistema() == null) {
                 tmp.add("null");
@@ -40,12 +40,12 @@ public class TableFormatter {
 
         for (int i = 0; i < al.size(); i++) {
             tmp.clear();
-            tmp.add(String.valueOf(al.get(i).getIdEventoCosmico()));
+            tmp.add(al.get(i).getIdEventoCosmico() != null ? al.get(i).getIdEventoCosmico().toString() : "null");
             tmp.add(al.get(i).getNome());
             tmp.add(al.get(i).getTipo().toString());
             tmp.add(al.get(i).getDataEvento().format(IT.DATE));
             tmp.add(al.get(i).getOraEvento().format(IT.TIME));
-            tmp.add(String.valueOf(al.get(i).getIdStella()));
+            tmp.add(al.get(i).getIdStella() != null ? al.get(i).getIdStella().toString() : "null");
             out.add((ArrayList<String>) tmp.clone());
         }
 
@@ -76,7 +76,7 @@ public class TableFormatter {
 
         for (int i = 0; i < al.size(); i++) {
             tmp.clear();
-            tmp.add(String.valueOf(al.get(i).getIdPianeta()));
+            tmp.add(al.get(i).getIdPianeta() != null ? al.get(i).getIdPianeta().toString() : "null");
             tmp.add(al.get(i).getNome());
             if (al.get(i).getSistema() == null) {
                 tmp.add("null");
@@ -85,7 +85,7 @@ public class TableFormatter {
             }
             tmp.add(al.get(i).getTipo().toString());
             tmp.add(String.valueOf(al.get(i).getTemperatura()));
-            tmp.add(String.valueOf(al.get(i).getIdGalassia()));
+            tmp.add(al.get(i).getIdGalassia() != null ? al.get(i).getIdGalassia().toString() : "null");
             out.add((ArrayList<String>) tmp.clone());
         }
 

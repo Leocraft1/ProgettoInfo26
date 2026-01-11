@@ -7,12 +7,12 @@ import model.enums.TipoEventoCosmico;
 
 public class EventoCosmico {
 
-    private int idEventoCosmico;
+    private Integer idEventoCosmico;
     private String nome;
     private TipoEventoCosmico tipo;
     private LocalDate dataEvento;
     private LocalTime oraEvento;
-    private int idStella;
+    private Integer idStella;
 
     /**
      * Object constructor.
@@ -24,8 +24,8 @@ public class EventoCosmico {
      * @param oraEvento
      * @param idStella
      */
-    public EventoCosmico(int idEventoCosmico, String nome, TipoEventoCosmico tipo,
-            LocalDate dataEvento, LocalTime oraEvento, int idStella) {
+    public EventoCosmico(Integer idEventoCosmico, String nome, TipoEventoCosmico tipo,
+            LocalDate dataEvento, LocalTime oraEvento, Integer idStella) {
         this.idEventoCosmico = idEventoCosmico;
         this.nome = nome;
         this.tipo = tipo;
@@ -34,11 +34,11 @@ public class EventoCosmico {
         this.idStella = idStella;
     }
 
-    public int getIdEventoCosmico() {
+    public Integer getIdEventoCosmico() {
         return idEventoCosmico;
     }
 
-    public void setIdEventoCosmico(int idEventoCosmico) {
+    public void setIdEventoCosmico(Integer idEventoCosmico) {
         this.idEventoCosmico = idEventoCosmico;
     }
 
@@ -74,30 +74,23 @@ public class EventoCosmico {
         this.oraEvento = oraEvento;
     }
 
-    public int getIdStella() {
+    public Integer getIdStella() {
         return idStella;
     }
 
-    public void setIdStella(int idStella) {
+    public void setIdStella(Integer idStella) {
         this.idStella = idStella;
-    }
-
-    @Override
-    public String toString() {
-        return "EventoCosmico [idEventoCosmico=" + idEventoCosmico + ", nome=" + nome
-                + ", tipo=" + tipo + ", dataEvento=" + dataEvento
-                + ", oraEvento=" + oraEvento + ", idStella=" + idStella + "]";
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 41 * hash + this.idEventoCosmico;
-        hash = 41 * hash + Objects.hashCode(this.nome);
-        hash = 41 * hash + Objects.hashCode(this.tipo);
-        hash = 41 * hash + Objects.hashCode(this.dataEvento);
-        hash = 41 * hash + Objects.hashCode(this.oraEvento);
-        hash = 41 * hash + this.idStella;
+        hash = 17 * hash + Objects.hashCode(this.idEventoCosmico);
+        hash = 17 * hash + Objects.hashCode(this.nome);
+        hash = 17 * hash + Objects.hashCode(this.tipo);
+        hash = 17 * hash + Objects.hashCode(this.dataEvento);
+        hash = 17 * hash + Objects.hashCode(this.oraEvento);
+        hash = 17 * hash + Objects.hashCode(this.idStella);
         return hash;
     }
 
@@ -113,13 +106,10 @@ public class EventoCosmico {
             return false;
         }
         final EventoCosmico other = (EventoCosmico) obj;
-        if (this.idEventoCosmico != other.idEventoCosmico) {
-            return false;
-        }
-        if (this.idStella != other.idStella) {
-            return false;
-        }
         if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.idEventoCosmico, other.idEventoCosmico)) {
             return false;
         }
         if (this.tipo != other.tipo) {
@@ -128,7 +118,14 @@ public class EventoCosmico {
         if (!Objects.equals(this.dataEvento, other.dataEvento)) {
             return false;
         }
-        return Objects.equals(this.oraEvento, other.oraEvento);
+        if (!Objects.equals(this.oraEvento, other.oraEvento)) {
+            return false;
+        }
+        return Objects.equals(this.idStella, other.idStella);
     }
 
+    @Override
+    public String toString() {
+        return "EventoCosmico{" + "idEventoCosmico=" + idEventoCosmico + ", nome=" + nome + ", tipo=" + tipo + ", dataEvento=" + dataEvento + ", oraEvento=" + oraEvento + ", idStella=" + idStella + '}';
+    }
 }
