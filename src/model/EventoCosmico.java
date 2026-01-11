@@ -34,7 +34,7 @@ public class EventoCosmico {
         this.idStella = idStella;
     }
 
-    public Integer getIdEventoCosmico() {
+    public int getIdEventoCosmico() {
         return idEventoCosmico;
     }
 

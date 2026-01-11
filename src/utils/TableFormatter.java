@@ -17,7 +17,7 @@ public class TableFormatter {
 
         for (int i = 0; i < al.size(); i++) {
             tmp.clear();
-            tmp.add(al.get(i).getIdStella() != null ? al.get(i).getIdStella().toString() : "null");
+            tmp.add(al.get(i).getIdStella().toString());
             tmp.add(al.get(i).getNome());
             if (al.get(i).getSistema() == null) {
                 tmp.add("null");
