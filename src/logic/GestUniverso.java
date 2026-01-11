@@ -208,7 +208,7 @@ public class GestUniverso {
     public void addStella(Stella s) throws SQLException, DuplicateException {
         ResultSet rs = dbc.query("SELECT * FROM " + tab_names.get(0) + " WHERE " + tab_attr.get(0).get(0) + " = ?", s.getIdStella());
         if (rs.next()) {
-            throw new DuplicateException("Stella gia'� presente con ID: " + s.getIdStella());
+            throw new DuplicateException("Stella gia' presente con ID: " + s.getIdStella());
         }
 
         dbc.update("INSERT INTO " + tab_names.get(0) + " VALUES(?,?,?,?,?,?)",
@@ -218,7 +218,7 @@ public class GestUniverso {
     public void addPianeta(Pianeta p) throws SQLException, DuplicateException {
         ResultSet rs = dbc.query("SELECT * FROM " + tab_names.get(1) + " WHERE " + tab_attr.get(1).get(0) + " = ?", p.getIdPianeta());
         if (rs.next()) {
-            throw new DuplicateException("Pianeta gia'� presente con ID: " + p.getIdPianeta());
+            throw new DuplicateException("Pianeta gia' presente con ID: " + p.getIdPianeta());
         }
 
         dbc.update("INSERT INTO " + tab_names.get(1) + " VALUES (?,?,?,?,?,?)",
@@ -228,7 +228,7 @@ public class GestUniverso {
     public void addGalassia(Galassia g) throws SQLException, DuplicateException {
         ResultSet rs = dbc.query("SELECT * FROM " + tab_names.get(2) + " WHERE " + tab_attr.get(2).get(0) + " = ?", g.getIdGalassia());
         if (rs.next()) {
-            throw new DuplicateException("Galassia gia'� presente con ID: " + g.getIdGalassia());
+            throw new DuplicateException("Galassia gia' presente con ID: " + g.getIdGalassia());
         }
 
         dbc.update("INSERT INTO " + tab_names.get(2) + " VALUES (?,?,?,?)",
@@ -238,7 +238,7 @@ public class GestUniverso {
     public void addEventoCosmico(EventoCosmico e) throws SQLException, DuplicateException {
         ResultSet rs = dbc.query("SELECT * FROM " + tab_names.get(3) + " WHERE " + tab_attr.get(3).get(0) + " = ?", e.getIdEventoCosmico());
         if (rs.next()) {
-            throw new DuplicateException("Evento gia'� presente con ID: " + e.getIdEventoCosmico());
+            throw new DuplicateException("Evento gia' presente con ID: " + e.getIdEventoCosmico());
         }
 
         dbc.update("INSERT INTO " + tab_names.get(3) + " VALUES (?,?,?,?,?,?)",
@@ -396,8 +396,7 @@ public class GestUniverso {
         if (rs.next()) {
             lista.add(new Galassia(
                     rs.getInt("idGalassia"),
-                    rs.getString("nome"),
-                    rs.getString("tipo"),
+                    rs.getString("nome"), (TipoGalassia) rs.getObject("tipo"),
                     rs.getInt("massa")
             ));
         }
@@ -411,10 +410,10 @@ public class GestUniverso {
      * @return
      * @throws SQLException
      */
-    public ArrayList<Galassia> getGalassieByTipo(String tipo) throws SQLException {
+    public ArrayList<Galassia> getGalassieByTipo(TipoGalassia tipo) throws SQLException {
         ResultSet rs = dbc.query(
                 "SELECT * FROM " + tab_names.get(2) + " WHERE tipo = ?",
-                tipo
+                tipo.name()
         );
 
         return getGalassieFromRS(rs);
@@ -597,7 +596,8 @@ public class GestUniverso {
         while (rs.next()) {
             int id = rs.getInt(tab_attr.get(2).get(0));
             String nome = rs.getString(tab_attr.get(2).get(1));
-            String tipo = rs.getString(tab_attr.get(2).get(2));
+            String tipoStr = rs.getString("tipo");
+            TipoGalassia tipo = TipoGalassia.valueOf(tipoStr);
             int massa = rs.getInt(tab_attr.get(2).get(3));
 
             out.add(new Galassia(id, nome, tipo, massa));

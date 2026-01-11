@@ -1,12 +1,13 @@
 package model;
 
 import java.util.Objects;
+import model.enums.TipoGalassia;
 
 public class Galassia {
 
     private int idGalassia;
     private String nome;
-    private String tipo;
+    private TipoGalassia tipo;
     private int massa;
 
     /**
@@ -17,7 +18,7 @@ public class Galassia {
      * @param tipo
      * @param massa
      */
-    public Galassia(int idGalassia, String nome, String tipo, int massa) {
+    public Galassia(int idGalassia, String nome, TipoGalassia tipo, int massa) {
         this.idGalassia = idGalassia;
         this.nome = nome;
         this.tipo = tipo;
@@ -40,11 +41,11 @@ public class Galassia {
         this.nome = nome;
     }
 
-    public String getTipo() {
+    public TipoGalassia getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoGalassia tipo) {
         this.tipo = tipo;
     }
 

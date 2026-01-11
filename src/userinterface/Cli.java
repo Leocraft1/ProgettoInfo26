@@ -19,6 +19,7 @@ import model.Pianeta;
 import model.Stella;
 import model.enums.FaseStella;
 import model.enums.TipoEventoCosmico;
+import model.enums.TipoGalassia;
 import model.enums.TipoPianeta;
 import myexceptions.DuplicateException;
 import utils.TableFormatter;
@@ -280,6 +281,13 @@ public class Cli {
         return s.equalsIgnoreCase("S");
     }
 
+    // --- Funzione privata per leggere stringa che può essere vuota ---
+    private String readString() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
+    }
+
+// --- Aggiornamento addStella ---
     public void addStella() {
         do {
             System.out.print("ID: ");
@@ -299,8 +307,12 @@ public class Cli {
             FaseStella fase = FaseStella.valueOf(ConsoleRead.readNotBlankString());
 
             this.listGalassie();
-            System.out.print("ID Galassia: ");
-            int idGal = ConsoleRead.readPositiveInt();
+            System.out.print("ID Galassia (lascia vuoto se nessuna): ");
+            String idGalInput = readString();
+            Integer idGal = null;
+            if (!idGalInput.isBlank()) {
+                idGal = Integer.parseInt(idGalInput);
+            }
 
             if (!confermaInserimento()) {
                 System.out.println("Operazione annullata.");
@@ -318,6 +330,7 @@ public class Cli {
         } while (true);
     }
 
+// --- Aggiornamento addPianeta ---
     public void addPianeta() {
         do {
             System.out.print("ID: ");
@@ -326,8 +339,11 @@ public class Cli {
             System.out.print("Nome: ");
             String nome = ConsoleRead.readNotBlankString();
 
-            System.out.print("Sistema: ");
-            String sistema = ConsoleRead.readNotBlankString();
+            System.out.print("Sistema (lascia vuoto se nessuno): ");
+            String sistema = readString();
+            if (sistema.isBlank()) {
+                sistema = null;
+            }
 
             stampaTipiPianeta();
             System.out.print("Tipo: ");
@@ -356,36 +372,7 @@ public class Cli {
         } while (true);
     }
 
-    public void addGalassia() {
-        do {
-            System.out.print("ID: ");
-            int id = ConsoleRead.readIntGreaterThan(0);
-
-            System.out.print("Nome: ");
-            String nome = ConsoleRead.readNotBlankString();
-
-            System.out.print("Tipo: ");
-            String tipo = ConsoleRead.readNotBlankString();
-
-            System.out.print("Massa: ");
-            int massa = ConsoleRead.readPositiveInt();
-
-            if (!confermaInserimento()) {
-                System.out.println("Operazione annullata.");
-                return;
-            }
-            try {
-                g.addGalassia(new Galassia(id, nome, tipo, massa));
-            } catch (SQLException e) {
-                System.out.println("Errore di comunicazione con il database.");
-            } catch (DuplicateException e) {
-                System.out.println("E' gia' presente una galassia con l'id " + id);
-            }
-            System.out.println("Galassia inserita");
-            return;
-        } while (true);
-    }
-
+// --- Aggiornamento addEventoCosmico ---
     public void addEventoCosmico() {
         do {
             System.out.print("ID Evento: ");
@@ -405,8 +392,12 @@ public class Cli {
             LocalTime ora = LocalTime.parse(ConsoleRead.readNotBlankString());
 
             this.listStelle();
-            System.out.print("ID Stella: ");
-            int idStella = ConsoleRead.readPositiveInt();
+            System.out.print("ID Stella (lascia vuoto se nessuna): ");
+            String idStellaInput = readString();
+            Integer idStella = null;
+            if (!idStellaInput.isBlank()) {
+                idStella = Integer.parseInt(idStellaInput);
+            }
 
             if (!confermaInserimento()) {
                 System.out.println("Operazione annullata.");
@@ -417,9 +408,40 @@ public class Cli {
             } catch (SQLException e) {
                 System.out.println("Errore di comunicazione con il database.");
             } catch (DuplicateException e) {
-                System.out.println("E' gia' presente un'evento cosmico con l'id " + id);
+                System.out.println("E' gia' presente un evento cosmico con l'id " + id);
             }
             System.out.println("Evento cosmico inserito");
+            return;
+        } while (true);
+    }
+
+    public void addGalassia() {
+        do {
+            System.out.print("ID: ");
+            int id = ConsoleRead.readIntGreaterThan(0);
+
+            System.out.print("Nome: ");
+            String nome = ConsoleRead.readNotBlankString();
+
+            stampaTipiGalassiaEnum();
+            System.out.print("Tipo: ");
+            TipoGalassia tipo = TipoGalassia.valueOf(ConsoleRead.readNotBlankString());
+
+            System.out.print("Massa: ");
+            int massa = ConsoleRead.readPositiveInt();
+
+            if (!confermaInserimento()) {
+                System.out.println("Operazione annullata.");
+                return;
+            }
+            try {
+                g.addGalassia(new Galassia(id, nome, tipo, massa));
+            } catch (SQLException e) {
+                System.out.println("Errore di comunicazione con il database.");
+            } catch (DuplicateException e) {
+                System.out.println("E' gia' presente una galassia con l'id " + id);
+            }
+            System.out.println("Galassia inserita");
             return;
         } while (true);
     }
@@ -598,26 +620,21 @@ public class Cli {
         }
     }
 
-    private void stampaTipiGalassia() {
+    private void stampaTipiGalassiaEnum() {
+        System.out.println("Tipi disponibili:");
+        for (TipoGalassia t : TipoGalassia.values()) {
+            System.out.println("- " + t);
+        }
+    }
+
+    public void countStelleInGalassiaCLI() {
+        this.listGalassie();
+        System.out.print("ID Galassia: ");
+        int id = ConsoleRead.readPositiveInt();
+
         try {
-            ArrayList<Galassia> galassie = g.getGalassie();
-            if (galassie.isEmpty()) {
-                System.out.println("Nessuna galassia presente.");
-                return;
-            }
-
-            // Creiamo una lista di tipi unici
-            ArrayList<String> tipi = new ArrayList<>();
-            for (Galassia gxy : galassie) {
-                if (!tipi.contains(gxy.getTipo())) {
-                    tipi.add(gxy.getTipo());
-                }
-            }
-
-            System.out.println("Tipi di galassie disponibili:");
-            for (String t : tipi) {
-                System.out.println("- " + t);
-            }
+            int n = g.countStelleInGalassia(id);
+            System.out.println("Numero stelle nella galassia: " + n);
         } catch (SQLException e) {
             System.out.println("Errore DB.");
         }
@@ -630,6 +647,10 @@ public class Cli {
 
         try {
             var lista = g.getStelleByFase(fase);
+            if (lista.isEmpty()) {
+                System.out.println("Non ci sono stelle in questa fase.");
+                return;
+            }
             ConsolePrint.printTable(
                     TableFormatter.parseStelleToTable(lista, g.getTabAttr()), "*"
             );
@@ -749,6 +770,7 @@ public class Cli {
     }
 
     public void countPianetiInGalassia() {
+        this.listGalassie();
         System.out.print("ID Galassia: ");
         int id = ConsoleRead.readPositiveInt();
 
@@ -813,6 +835,7 @@ public class Cli {
     }
 
     public void countEventiPerStella() {
+        this.listStelle();
         System.out.print("ID Stella: ");
         int id = ConsoleRead.readPositiveInt();
 
@@ -840,9 +863,9 @@ public class Cli {
     }
 
     public void galassiePerTipo() {
+        stampaTipiGalassiaEnum();
         System.out.print("Tipo galassia: ");
-        stampaTipiGalassia(); // mostra i tipi prima
-        String tipo = ConsoleRead.readNotBlankString();
+        TipoGalassia tipo = TipoGalassia.valueOf(ConsoleRead.readNotBlankString());
 
         try {
             ArrayList<Galassia> lista = g.getGalassieByTipo(tipo);
@@ -888,18 +911,6 @@ public class Cli {
         } catch (SQLException e) {
             System.out.println("Errore DB.");
         } catch (InvalidSeparatorException e) {
-        }
-    }
-
-    public void countStelleInGalassiaCLI() {
-        System.out.print("ID Galassia: ");
-        int id = ConsoleRead.readPositiveInt();
-
-        try {
-            int n = g.countStelleInGalassia(id);
-            System.out.println("Numero stelle nella galassia: " + n);
-        } catch (SQLException e) {
-            System.out.println("Errore DB.");
         }
     }
 
