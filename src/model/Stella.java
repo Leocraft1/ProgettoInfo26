@@ -5,12 +5,12 @@ import model.enums.FaseStella;
 
 public class Stella {
 
-    private Integer idStella;
+    private int idStella;
     private String nome;
     private String sistema;
-    private Integer temperatura;
+    private int temperatura;
     private FaseStella fase;
-    private Integer idGalassia;
+    private int idGalassia;
 
     /**
      * Object constructor.
@@ -20,7 +20,7 @@ public class Stella {
      * @param temperatura
      * @param fase
      */
-    public Stella(Integer idStella, String nome, Integer temperatura, FaseStella fase) {
+    public Stella(int idStella, String nome, int temperatura, FaseStella fase) {
         this.idStella = idStella;
         this.nome = nome;
         this.temperatura = temperatura;
@@ -36,7 +36,7 @@ public class Stella {
      * @param temperatura
      * @param fase
      */
-    public Stella(Integer idStella, String nome, String sistema, Integer temperatura, FaseStella fase) {
+    public Stella(int idStella, String nome, String sistema, int temperatura, FaseStella fase) {
         this.idStella = idStella;
         this.nome = nome;
         this.sistema = sistema;
@@ -53,7 +53,7 @@ public class Stella {
      * @param fase
      * @param idGalassia
      */
-    public Stella(Integer idStella, String nome, Integer temperatura, FaseStella fase, Integer idGalassia) {
+    public Stella(int idStella, String nome, int temperatura, FaseStella fase, int idGalassia) {
         super();
         this.idStella = idStella;
         this.nome = nome;
@@ -72,7 +72,7 @@ public class Stella {
      * @param fase
      * @param idGalassia
      */
-    public Stella(Integer idStella, String nome, String sistema, Integer temperatura, FaseStella fase, Integer idGalassia) {
+    public Stella(int idStella, String nome, String sistema, int temperatura, FaseStella fase, int idGalassia) {
         this.idStella = idStella;
         this.nome = nome;
         this.sistema = sistema;
@@ -81,11 +81,11 @@ public class Stella {
         this.idGalassia = idGalassia;
     }
 
-    public Integer getIdStella() {
+    public int getIdStella() {
         return idStella;
     }
 
-    public void setIdStella(Integer idStella) {
+    public void setIdStella(int idStella) {
         this.idStella = idStella;
     }
 
@@ -105,11 +105,11 @@ public class Stella {
         this.sistema = sistema;
     }
 
-    public Integer getTemperatura() {
+    public int getTemperatura() {
         return temperatura;
     }
 
-    public void setTemperatura(Integer temperatura) {
+    public void setTemperatura(int temperatura) {
         this.temperatura = temperatura;
     }
 
@@ -121,7 +121,7 @@ public class Stella {
         this.fase = fase;
     }
 
-    public Integer getIdGalassia() {
+    public int getIdGalassia() {
         return idGalassia;
     }
 
@@ -132,12 +132,12 @@ public class Stella {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.idStella);
-        hash = 29 * hash + Objects.hashCode(this.nome);
-        hash = 29 * hash + Objects.hashCode(this.sistema);
-        hash = 29 * hash + Objects.hashCode(this.temperatura);
-        hash = 29 * hash + Objects.hashCode(this.fase);
-        hash = 29 * hash + Objects.hashCode(this.idGalassia);
+        hash = 67 * hash + this.idStella;
+        hash = 67 * hash + Objects.hashCode(this.nome);
+        hash = 67 * hash + Objects.hashCode(this.sistema);
+        hash = 67 * hash + this.temperatura;
+        hash = 67 * hash + Objects.hashCode(this.fase);
+        hash = 67 * hash + this.idGalassia;
         return hash;
     }
 
@@ -153,22 +153,22 @@ public class Stella {
             return false;
         }
         final Stella other = (Stella) obj;
+        if (this.idStella != other.idStella) {
+            return false;
+        }
+        if (this.temperatura != other.temperatura) {
+            return false;
+        }
+        if (this.idGalassia != other.idGalassia) {
+            return false;
+        }
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
         if (!Objects.equals(this.sistema, other.sistema)) {
             return false;
         }
-        if (!Objects.equals(this.idStella, other.idStella)) {
-            return false;
-        }
-        if (!Objects.equals(this.temperatura, other.temperatura)) {
-            return false;
-        }
-        if (this.fase != other.fase) {
-            return false;
-        }
-        return Objects.equals(this.idGalassia, other.idGalassia);
+        return this.fase == other.fase;
     }
 
     @Override

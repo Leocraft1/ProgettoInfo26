@@ -284,16 +284,16 @@ public class Cli {
 
     // ================= INSERIMENTIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
     private boolean confermaInserimento() {
-    	do {
-			System.out.print("Sei sicuro di voler aggiungere l'elemento? (S/N): ");
-		    String s = ConsoleRead.readNotBlankString();
-		    if(s.equalsIgnoreCase("S")||s.equalsIgnoreCase("Y")) {
-		    	return true;
-		    }else if(s.equalsIgnoreCase("N")) {
-		    	return false;
-		    }
-		    System.out.print(s.toUpperCase()+" non e' un opzione (S/N): ");
-		}while(true);
+        do {
+            System.out.print("Sei sicuro di voler aggiungere l'elemento? (S/N): ");
+            String s = ConsoleRead.readNotBlankString();
+            if (s.equalsIgnoreCase("S") || s.equalsIgnoreCase("Y")) {
+                return true;
+            } else if (s.equalsIgnoreCase("N")) {
+                return false;
+            }
+            System.out.print(s.toUpperCase() + " non e' un opzione (S/N): ");
+        } while (true);
     }
 
     // --- Funzione privata per leggere stringa che puo' essere vuota ---
@@ -324,7 +324,7 @@ public class Cli {
             this.listGalassie();
             System.out.print("ID Galassia (lascia vuoto se nessuna): ");
             String idGalInput = readString();
-            Integer idGal = null;
+            int idGal = 0;
             if (!idGalInput.isBlank()) {
                 idGal = Integer.parseInt(idGalInput);
             }
@@ -357,7 +357,7 @@ public class Cli {
             System.out.print("Sistema (lascia vuoto se nessuno): ");
             String sistema = readString();
             if (sistema.isBlank()) {
-                sistema = null;
+                sistema = "";
             }
 
             stampaTipiPianeta();
@@ -370,7 +370,7 @@ public class Cli {
             this.listGalassie();
             System.out.print("ID Galassia (lascia vuoto se nessuna): ");
             String idGalInput = readString();
-            Integer idGal = null;
+            int idGal = 0;
             if (!idGalInput.isBlank()) {
                 idGal = Integer.parseInt(idGalInput);
             }
@@ -395,7 +395,7 @@ public class Cli {
     public void addEventoCosmico() {
         do {
             System.out.print("ID Evento: ");
-            Integer id = ConsoleRead.readIntGreaterThan(0);
+            int id = ConsoleRead.readIntGreaterThan(0);
 
             System.out.print("Nome: ");
             String nome = ConsoleRead.readNotBlankString();
@@ -411,22 +411,26 @@ public class Cli {
             LocalTime ora = LocalTime.parse(ConsoleRead.readNotBlankString());
 
             this.listStelle();
-            Integer idStella = null;
+
+            int idStella = 0;
             do {
                 System.out.print("ID Stella (OBBLIGATORIO): ");
                 String idStellaInput = readString();
+
                 if (!idStellaInput.isBlank()) {
                     idStella = Integer.parseInt(idStellaInput);
                 }
-                if (idStella == null) {
+
+                if (idStella == 0) {
                     System.out.println("Errore: un Evento Cosmico deve avere una Stella associata!");
                 }
-            } while (idStella == null);
+            } while (idStella == 0);
 
             if (!confermaInserimento()) {
                 System.out.println("Operazione annullata.");
                 return;
             }
+
             try {
                 g.addEventoCosmico(new EventoCosmico(id, nome, tipo, data, ora, idStella));
             } catch (SQLException e) {
@@ -434,8 +438,10 @@ public class Cli {
             } catch (DuplicateException e) {
                 System.out.println("E' gia' presente un evento cosmico con l'id " + id);
             }
+
             System.out.println("Evento cosmico inserito");
             return;
+
         } while (true);
     }
 
@@ -473,16 +479,16 @@ public class Cli {
 
     // ================= RIMOZIONIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII =================
     private boolean confermaEliminazione() {
-		do {
-			System.out.print("Sei sicuro di voler eliminare? (S/N): ");
-		    String s = ConsoleRead.readNotBlankString();
-		    if(s.equalsIgnoreCase("S")||s.equalsIgnoreCase("Y")) {
-		    	return true;
-		    }else if(s.equalsIgnoreCase("N")) {
-		    	return false;
-		    }
-		    System.out.print(s.toUpperCase()+" non e' un opzione (S/N): ");
-		}while(true);
+        do {
+            System.out.print("Sei sicuro di voler eliminare? (S/N): ");
+            String s = ConsoleRead.readNotBlankString();
+            if (s.equalsIgnoreCase("S") || s.equalsIgnoreCase("Y")) {
+                return true;
+            } else if (s.equalsIgnoreCase("N")) {
+                return false;
+            }
+            System.out.print(s.toUpperCase() + " non e' un opzione (S/N): ");
+        } while (true);
     }
 
     public void removeStella() {
@@ -584,7 +590,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseStelleToTable(stelle, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void listPianeti() {
@@ -597,7 +604,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parsePianetiToTable(pianeti, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void listGalassie() {
@@ -610,7 +618,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseGalassieToTable(galassie, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void listEventiCosmici() {
@@ -623,7 +632,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseECToTable(eventi, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     // ================= ENUMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM =================
@@ -669,7 +679,6 @@ public class Cli {
     }
 
     //QUERIES
-    
     public void stellePerFase() {
         stampaFasiStella();
         System.out.print("Fase: ");
@@ -697,7 +706,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseStelleToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void stellaPiuCalda() {
@@ -707,7 +717,8 @@ public class Cli {
             );
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void stelleSenzaGalassia() {
@@ -720,7 +731,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseStelleToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void countStelleInGalassia() {
@@ -749,7 +761,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parsePianetiToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void pianetiPerRangeTemperatura() {
@@ -767,7 +780,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parsePianetiToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void pianetaPiuCaldo() {
@@ -780,7 +794,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parsePianetiToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void countPianetiInGalassia() {
@@ -806,7 +821,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parsePianetiToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void eventiPerTipo() {
@@ -823,7 +839,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseECToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void eventiDopoData() {
@@ -839,7 +856,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseECToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void countEventiPerStella() {
@@ -865,7 +883,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseECToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void galassiePerTipo() {
@@ -882,7 +901,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseGalassieToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void galassiePerMinMassa() {
@@ -898,7 +918,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseGalassieToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void galassiaPiuPesante() {
@@ -911,7 +932,8 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseGalassieToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void galassieSenzaStelle() {
@@ -924,18 +946,25 @@ public class Cli {
             ConsolePrint.printTable(TableFormatter.parseGalassieToTable(lista, g.getTabAttr()), "*");
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     public void ultimoEventoCosmico() {
         try {
             EventoCosmico ec = g.getUltimoEventoCosmico();
+            if (ec == null) {
+                System.out.println("Nessun evento presente.");
+                return;
+            }
             ArrayList<EventoCosmico> lista = new ArrayList<>();
-            lista.add(ec); // mettiamo l'evento in una lista così possiamo usare il TableFormatter
+            lista.add(ec);
             ConsolePrint.printTable(TableFormatter.parseECToTable(lista, g.getTabAttr()), "*");
+
         } catch (SQLException e) {
             System.out.println("Errore DB.");
-        } catch (InvalidSeparatorException e) {}
+        } catch (InvalidSeparatorException e) {
+        }
     }
 
     private String[] getAppInfo() {

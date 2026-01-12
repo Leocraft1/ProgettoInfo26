@@ -5,12 +5,12 @@ import model.enums.TipoPianeta;
 
 public class Pianeta {
 
-    private Integer idPianeta;
+    private int idPianeta;
     private String nome;
     private String sistema;
     private TipoPianeta tipo;
-    private Integer temperatura;
-    private Integer idGalassia;
+    private int temperatura;
+    private int idGalassia;
 
     /**
      * Object constructor.
@@ -20,7 +20,7 @@ public class Pianeta {
      * @param tipo
      * @param temperatura
      */
-    public Pianeta(Integer idPianeta, String nome, TipoPianeta tipo, Integer temperatura) {
+    public Pianeta(int idPianeta, String nome, TipoPianeta tipo, int temperatura) {
         this.idPianeta = idPianeta;
         this.nome = nome;
         this.tipo = tipo;
@@ -36,8 +36,8 @@ public class Pianeta {
      * @param tipo
      * @param temperatura
      */
-    public Pianeta(Integer idPianeta, String nome, String sistema,
-            TipoPianeta tipo, Integer temperatura) {
+    public Pianeta(int idPianeta, String nome, String sistema,
+            TipoPianeta tipo, int temperatura) {
         this.idPianeta = idPianeta;
         this.nome = nome;
         this.sistema = sistema;
@@ -54,8 +54,8 @@ public class Pianeta {
      * @param temperatura
      * @param idGalassia
      */
-    public Pianeta(Integer idPianeta, String nome, TipoPianeta tipo,
-            int temperatura, Integer idGalassia) {
+    public Pianeta(int idPianeta, String nome, TipoPianeta tipo,
+            int temperatura, int idGalassia) {
         this.idPianeta = idPianeta;
         this.nome = nome;
         this.tipo = tipo;
@@ -73,8 +73,8 @@ public class Pianeta {
      * @param temperatura
      * @param idGalassia
      */
-    public Pianeta(Integer idPianeta, String nome, String sistema,
-            TipoPianeta tipo, Integer temperatura, Integer idGalassia) {
+    public Pianeta(int idPianeta, String nome, String sistema,
+            TipoPianeta tipo, int temperatura, int idGalassia) {
         this.idPianeta = idPianeta;
         this.nome = nome;
         this.sistema = sistema;
@@ -83,11 +83,11 @@ public class Pianeta {
         this.idGalassia = idGalassia;
     }
 
-    public Integer getIdPianeta() {
+    public int getIdPianeta() {
         return idPianeta;
     }
 
-    public void setIdPianeta(Integer idPianeta) {
+    public void setIdPianeta(int idPianeta) {
         this.idPianeta = idPianeta;
     }
 
@@ -115,15 +115,15 @@ public class Pianeta {
         this.tipo = tipo;
     }
 
-    public Integer getTemperatura() {
+    public int getTemperatura() {
         return temperatura;
     }
 
-    public void setTemperatura(Integer temperatura) {
+    public void setTemperatura(int temperatura) {
         this.temperatura = temperatura;
     }
 
-    public Integer getIdGalassia() {
+    public int getIdGalassia() {
         return idGalassia;
     }
 
@@ -134,12 +134,12 @@ public class Pianeta {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.idPianeta);
-        hash = 37 * hash + Objects.hashCode(this.nome);
-        hash = 37 * hash + Objects.hashCode(this.sistema);
-        hash = 37 * hash + Objects.hashCode(this.tipo);
-        hash = 37 * hash + Objects.hashCode(this.temperatura);
-        hash = 37 * hash + Objects.hashCode(this.idGalassia);
+        hash = 83 * hash + this.idPianeta;
+        hash = 83 * hash + Objects.hashCode(this.nome);
+        hash = 83 * hash + Objects.hashCode(this.sistema);
+        hash = 83 * hash + Objects.hashCode(this.tipo);
+        hash = 83 * hash + this.temperatura;
+        hash = 83 * hash + this.idGalassia;
         return hash;
     }
 
@@ -155,22 +155,22 @@ public class Pianeta {
             return false;
         }
         final Pianeta other = (Pianeta) obj;
+        if (this.idPianeta != other.idPianeta) {
+            return false;
+        }
+        if (this.temperatura != other.temperatura) {
+            return false;
+        }
+        if (this.idGalassia != other.idGalassia) {
+            return false;
+        }
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
         if (!Objects.equals(this.sistema, other.sistema)) {
             return false;
         }
-        if (!Objects.equals(this.idPianeta, other.idPianeta)) {
-            return false;
-        }
-        if (this.tipo != other.tipo) {
-            return false;
-        }
-        if (!Objects.equals(this.temperatura, other.temperatura)) {
-            return false;
-        }
-        return Objects.equals(this.idGalassia, other.idGalassia);
+        return this.tipo == other.tipo;
     }
 
     @Override

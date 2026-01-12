@@ -7,12 +7,12 @@ import model.enums.TipoEventoCosmico;
 
 public class EventoCosmico {
 
-    private Integer idEventoCosmico;
+    private int idEventoCosmico;
     private String nome;
     private TipoEventoCosmico tipo;
     private LocalDate dataEvento;
     private LocalTime oraEvento;
-    private Integer idStella;
+    private int idStella;
 
     /**
      * Object constructor.
@@ -24,8 +24,8 @@ public class EventoCosmico {
      * @param oraEvento
      * @param idStella
      */
-    public EventoCosmico(Integer idEventoCosmico, String nome, TipoEventoCosmico tipo,
-            LocalDate dataEvento, LocalTime oraEvento, Integer idStella) {
+    public EventoCosmico(int idEventoCosmico, String nome, TipoEventoCosmico tipo,
+            LocalDate dataEvento, LocalTime oraEvento, int idStella) {
         this.idEventoCosmico = idEventoCosmico;
         this.nome = nome;
         this.tipo = tipo;
@@ -38,7 +38,7 @@ public class EventoCosmico {
         return idEventoCosmico;
     }
 
-    public void setIdEventoCosmico(Integer idEventoCosmico) {
+    public void setIdEventoCosmico(int idEventoCosmico) {
         this.idEventoCosmico = idEventoCosmico;
     }
 
@@ -74,23 +74,23 @@ public class EventoCosmico {
         this.oraEvento = oraEvento;
     }
 
-    public Integer getIdStella() {
+    public int getIdStella() {
         return idStella;
     }
 
-    public void setIdStella(Integer idStella) {
+    public void setIdStella(int idStella) {
         this.idStella = idStella;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 17 * hash + Objects.hashCode(this.idEventoCosmico);
-        hash = 17 * hash + Objects.hashCode(this.nome);
-        hash = 17 * hash + Objects.hashCode(this.tipo);
-        hash = 17 * hash + Objects.hashCode(this.dataEvento);
-        hash = 17 * hash + Objects.hashCode(this.oraEvento);
-        hash = 17 * hash + Objects.hashCode(this.idStella);
+        int hash = 3;
+        hash = 53 * hash + this.idEventoCosmico;
+        hash = 53 * hash + Objects.hashCode(this.nome);
+        hash = 53 * hash + Objects.hashCode(this.tipo);
+        hash = 53 * hash + Objects.hashCode(this.dataEvento);
+        hash = 53 * hash + Objects.hashCode(this.oraEvento);
+        hash = 53 * hash + this.idStella;
         return hash;
     }
 
@@ -106,10 +106,13 @@ public class EventoCosmico {
             return false;
         }
         final EventoCosmico other = (EventoCosmico) obj;
-        if (!Objects.equals(this.nome, other.nome)) {
+        if (this.idEventoCosmico != other.idEventoCosmico) {
             return false;
         }
-        if (!Objects.equals(this.idEventoCosmico, other.idEventoCosmico)) {
+        if (this.idStella != other.idStella) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
         if (this.tipo != other.tipo) {
@@ -118,10 +121,7 @@ public class EventoCosmico {
         if (!Objects.equals(this.dataEvento, other.dataEvento)) {
             return false;
         }
-        if (!Objects.equals(this.oraEvento, other.oraEvento)) {
-            return false;
-        }
-        return Objects.equals(this.idStella, other.idStella);
+        return Objects.equals(this.oraEvento, other.oraEvento);
     }
 
     @Override
