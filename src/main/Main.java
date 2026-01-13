@@ -135,6 +135,7 @@ public class Main {
                     break;
                 case 8:
                     cli.countStelleInGalassiaCLI();
+                    break;
                 case 0:
                     return;
             }
@@ -168,6 +169,7 @@ public class Main {
                     break;
                 case 8:
                     cli.ultimoEventoCosmico();
+                    break;
                 case 0:
                     return;
             }
