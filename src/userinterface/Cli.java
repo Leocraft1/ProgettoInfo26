@@ -305,16 +305,16 @@ public class Cli {
     // Legge un enum in modo sicuro (niente crash almeno spero, ma dovrebbe andare bene)
 
     /**
-     * SPIEGAZIONE SINTETICA: * 1. <T extends Enum<T>>: Indica che il metodo è
-     * GENERICO. T è un "segnaposto" che diventerà il tipo del tuo Enum quando
-     * lo usi. * 2. Class<T> enumClass: È il parametro che dice al metodo su
-     * QUALE Enum deve lavorare (es. Pizza.class). * 3. try { ... } catch: Serve
-     * per la GESTIONE DELLE ECCEZIONI. Il comando Enum.valueOf() crasha se
-     * l'utente scrive una parola che non esiste nell'Enum. Il "catch"
-     * intercetta questo errore, impedisce al programma di chiudersi e stampa un
-     * messaggio di aiuto. * 4. do-while(true): Crea un LOOP DI VALIDAZIONE. Il
-     * programma resta "bloccato" qui finché l'utente non inserisce una parola
-     * corretta. Solo allora il 'return' interrompe il ciclo.
+     * 1. <T extends Enum<T>>: Indica che il metodo è GENERICO. T è un
+     * "segnaposto" che diventerà il tipo del tuo Enum quando lo usi. * 2.
+     * Class<T> enumClass: È il parametro che dice al metodo su QUALE Enum deve
+     * lavorare (es. Pizza.class). * 3. try { ... } catch: Serve per la GESTIONE
+     * DELLE ECCEZIONI. Il comando Enum.valueOf() crasha se l'utente scrive una
+     * parola che non esiste nell'Enum. Il "catch" intercetta questo errore,
+     * impedisce al programma di chiudersi e stampa un messaggio di aiuto. * 4.
+     * do-while(true): Crea un LOOP DI VALIDAZIONE. Il programma resta
+     * "bloccato" qui finché l'utente non inserisce una parola corretta. Solo
+     * allora il 'return' interrompe il ciclo.
      */
     private <T extends Enum<T>> T readEnum(Class<T> enumClass) {
         do {
