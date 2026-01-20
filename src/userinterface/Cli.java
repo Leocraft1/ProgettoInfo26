@@ -69,10 +69,10 @@ public class Cli {
                     + "      | C |\n"
                     + "      | H |\n"
                     + "     /|   |\\\n"
-                    + "    * * * * *"
-                    + "      * * *"
-                    + "       * *"
-                    + "        *";
+                    + "    * * * * *\n"
+                    + "      * * *\n"
+                    + "       * *\n"
+                    + "        *\n";
 
             // --- FASE 2: Lancio ---
             System.out.print("\n\n\n\n\n\n\n\n\n\n");
