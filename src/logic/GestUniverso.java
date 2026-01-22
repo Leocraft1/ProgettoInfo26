@@ -752,4 +752,29 @@ public class GestUniverso {
         ResultSet rs = dbc.query("SELECT * FROM " + tab_names.get(3) + " WHERE idStella IS NULL");
         return getECFromRS(rs);
     }
+
+    public int countStelle() throws SQLException {
+        ResultSet rs = dbc.query("SELECT COUNT(*) AS totale FROM " + tab_names.get(0));
+        rs.next();
+        return rs.getInt("totale");
+    }
+
+    public int countPianeti() throws SQLException {
+        ResultSet rs = dbc.query("SELECT COUNT(*) AS totale FROM " + tab_names.get(1));
+        rs.next();
+        return rs.getInt("totale");
+    }
+
+    public int countGalassie() throws SQLException {
+        ResultSet rs = dbc.query("SELECT COUNT(*) AS totale FROM " + tab_names.get(2));
+        rs.next();
+        return rs.getInt("totale");
+    }
+
+    public int countEventiCosmici() throws SQLException {
+        ResultSet rs = dbc.query("SELECT COUNT(*) AS totale FROM " + tab_names.get(3));
+        rs.next();
+        return rs.getInt("totale");
+    }
+
 }

@@ -104,7 +104,7 @@ public class Cli {
             System.out.println("");
             System.out.println("---------------------------------------------");
 
-            pausa(100);
+            pausa(1);
         }
         System.out.println("Benvenuto in: " + app_name.toUpperCase());
     }
@@ -641,10 +641,18 @@ public class Cli {
                 System.out.println("Nessuna stella presente");
                 return;
             }
-            ConsolePrint.printTable(TableFormatter.parseStelleToTable(stelle, g.getTabAttr()), "*");
+
+            ConsolePrint.printTable(
+                    TableFormatter.parseStelleToTable(stelle, g.getTabAttr()), "*"
+            );
+
+            int totale = g.countStelle();
+            System.out.println("Totale stelle nel database: " + totale);
+
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
         } catch (InvalidSeparatorException e) {
+            System.out.println("Errore di formattazione tabella.");
         }
     }
 
@@ -655,10 +663,18 @@ public class Cli {
                 System.out.println("Nessun pianeta presente");
                 return;
             }
-            ConsolePrint.printTable(TableFormatter.parsePianetiToTable(pianeti, g.getTabAttr()), "*");
+
+            ConsolePrint.printTable(
+                    TableFormatter.parsePianetiToTable(pianeti, g.getTabAttr()), "*"
+            );
+
+            int totale = g.countPianeti();
+            System.out.println("Totale pianeti nel database: " + totale);
+
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
         } catch (InvalidSeparatorException e) {
+            System.out.println("Errore di formattazione tabella.");
         }
     }
 
@@ -669,10 +685,18 @@ public class Cli {
                 System.out.println("Nessuna galassia presente");
                 return;
             }
-            ConsolePrint.printTable(TableFormatter.parseGalassieToTable(galassie, g.getTabAttr()), "*");
+
+            ConsolePrint.printTable(
+                    TableFormatter.parseGalassieToTable(galassie, g.getTabAttr()), "*"
+            );
+
+            int totale = g.countGalassie();
+            System.out.println("Totale galassie nel database: " + totale);
+
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
         } catch (InvalidSeparatorException e) {
+            System.out.println("Errore di formattazione tabella.");
         }
     }
 
@@ -683,39 +707,83 @@ public class Cli {
                 System.out.println("Nessun evento presente");
                 return;
             }
-            ConsolePrint.printTable(TableFormatter.parseECToTable(eventi, g.getTabAttr()), "*");
+
+            ConsolePrint.printTable(
+                    TableFormatter.parseECToTable(eventi, g.getTabAttr()), "*"
+            );
+
+            int totale = g.countEventiCosmici();
+            System.out.println("Totale eventi cosmici nel database: " + totale);
+
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
         } catch (InvalidSeparatorException e) {
+            System.out.println("Errore di formattazione tabella.");
         }
     }
 
     // ================= ENUMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM =================
     private void stampaFasiStella() {
-        System.out.println("Fasi disponibili:");
-        for (FaseStella f : FaseStella.values()) {
-            System.out.println("- " + f);
+        try {
+            FaseStella[] valori = FaseStella.values();
+
+            System.out.println("Fasi disponibili:");
+            for (FaseStella f : valori) {
+                System.out.println("- " + f);
+            }
+
+            System.out.println("Totale fasi: " + valori.length);
+
+        } catch (Exception e) {
+            System.out.println("Errore nella stampa delle fasi stella.");
         }
     }
 
     private void stampaTipiPianeta() {
-        System.out.println("Tipi disponibili:");
-        for (TipoPianeta t : TipoPianeta.values()) {
-            System.out.println("- " + t);
+        try {
+            TipoPianeta[] valori = TipoPianeta.values();
+
+            System.out.println("Tipi disponibili:");
+            for (TipoPianeta t : valori) {
+                System.out.println("- " + t);
+            }
+
+            System.out.println("Totale tipi pianeta: " + valori.length);
+
+        } catch (Exception e) {
+            System.out.println("Errore nella stampa dei tipi pianeta.");
         }
     }
 
     private void stampaTipiEventoCosmico() {
-        System.out.println("Tipi disponibili:");
-        for (TipoEventoCosmico t : TipoEventoCosmico.values()) {
-            System.out.println("- " + t);
+        try {
+            TipoEventoCosmico[] valori = TipoEventoCosmico.values();
+
+            System.out.println("Tipi disponibili:");
+            for (TipoEventoCosmico t : valori) {
+                System.out.println("- " + t);
+            }
+
+            System.out.println("Totale tipi evento: " + valori.length);
+
+        } catch (Exception e) {
+            System.out.println("Errore nella stampa dei tipi evento cosmico.");
         }
     }
 
     private void stampaTipiGalassiaEnum() {
-        System.out.println("Tipi disponibili:");
-        for (TipoGalassia t : TipoGalassia.values()) {
-            System.out.println("- " + t);
+        try {
+            TipoGalassia[] valori = TipoGalassia.values();
+
+            System.out.println("Tipi disponibili:");
+            for (TipoGalassia t : valori) {
+                System.out.println("- " + t);
+            }
+
+            System.out.println("Totale tipi galassia: " + valori.length);
+
+        } catch (Exception e) {
+            System.out.println("Errore nella stampa dei tipi galassia.");
         }
     }
 
