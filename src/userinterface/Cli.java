@@ -199,6 +199,7 @@ public class Cli {
         System.out.println("6) Galassia piu' pesante");
         System.out.println("7) Galassie senza stelle");
         System.out.println("8) Conta stelle in una galassia");
+        System.out.println("9) Guarda l'universo completo con dettagli su ogni cosa presente");
         System.out.println("");
         System.out.println("0) Indietro");
         System.out.println("==============================================");
@@ -217,6 +218,7 @@ public class Cli {
         System.out.println("6) Eventi senza stella");
         System.out.println("7) Conta eventi per stella");
         System.out.println("8) Ultimo evento cosmico");
+        System.out.println("9) Esplora tutti gli eventi cosmici con dettagli su stelle, pianeti e galassie");
         System.out.println("");
         System.out.println("0) Indietro");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
@@ -263,7 +265,7 @@ public class Cli {
         do {
             printGalassieMenuPage();
             int opzione = ConsoleRead.readInt();
-            if (opzione < 0 || opzione > 8) {
+            if (opzione < 0 || opzione > 9) {
                 System.out.println("L'opzione " + opzione + " non e' valida");
             } else {
                 return opzione;
@@ -275,7 +277,7 @@ public class Cli {
         do {
             printEventoCosmicoMenuPage();
             int opzione = ConsoleRead.readInt();
-            if (opzione < 0 || opzione > 8) {
+            if (opzione < 0 || opzione > 9) {
                 System.out.println("L'opzione " + opzione + " non e' valida");
             } else {
                 return opzione;
@@ -1109,6 +1111,35 @@ public class Cli {
         } catch (IOException e) {
             System.out.println("Errore di lettura del file config.properties.");
             return null;
+        }
+    }
+
+    public void universoCompleto() {
+        try {
+            var rs = g.getUniversoCompleto();
+
+            System.out.println("===== UNIVERSO COMPLETO =====");
+
+            while (rs.next()) {
+                System.out.println(
+                        "Galassia: " + rs.getString("nomeGalassia")
+                        + " | Stella: " + rs.getString("nomeStella")
+                        + " | Pianeta: " + rs.getString("nomePianeta")
+                        + " | Evento: " + rs.getString("nomeEvento")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Errore di comunicazione con il database.");
+        }
+    }
+
+    public void eventiConContesto() {
+        try {
+            System.out.println("===== EVENTI COSMICI CON CONTESTO =====");
+            g.stampaEventiConContesto();
+        } catch (SQLException e) {
+            System.out.println("Errore di comunicazione con il database.");
         }
     }
 }

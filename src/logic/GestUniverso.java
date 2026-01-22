@@ -777,4 +777,52 @@ public class GestUniverso {
         return rs.getInt("totale");
     }
 
+    public ResultSet getUniversoCompleto() throws SQLException {
+        String sql
+                = "SELECT "
+                + " g.idGalassia, g.nome AS nomeGalassia, g.tipo AS tipoGalassia, g.massa, "
+                + " s.idStella, s.nome AS nomeStella, s.fase, s.temperatura AS tempStella, "
+                + " p.idPianeta, p.nome AS nomePianeta, p.tipo AS tipoPianeta, p.temperatura AS tempPianeta, "
+                + " e.idEventoCosmico, e.nome AS nomeEvento, e.tipo AS tipoEvento, e.dataEvento, e.oraEvento "
+                + "FROM " + tab_names.get(2) + " g "
+                + // Galassia
+                "LEFT JOIN " + tab_names.get(0) + " s ON s.idGalassia = g.idGalassia "
+                + // Stella
+                "LEFT JOIN " + tab_names.get(1) + " p ON p.idGalassia = g.idGalassia "
+                + // Pianeta
+                "LEFT JOIN " + tab_names.get(3) + " e ON e.idStella = s.idStella "
+                + // Evento
+                "ORDER BY g.nome, s.nome, p.nome";
+
+        return dbc.query(sql);
+    }
+
+    public void stampaEventiConContesto() throws SQLException {
+
+        String sql
+                = "SELECT "
+                + " e.nome AS evento, "
+                + " e.tipo AS tipoEvento, "
+                + " s.nome AS stella, "
+                + " g.nome AS galassia, "
+                + " g.tipo AS tipoGalassia, "
+                + " (SELECT COUNT(*) FROM " + tab_names.get(1)
+                + "  WHERE idGalassia = g.idGalassia) AS numeroPianeti "
+                + "FROM " + tab_names.get(3) + " e "
+                + "JOIN " + tab_names.get(0) + " s ON e.idStella = s.idStella "
+                + "JOIN " + tab_names.get(2) + " g ON s.idGalassia = g.idGalassia "
+                + "ORDER BY e.dataEvento DESC";
+
+        ResultSet rs = dbc.query(sql);
+
+        while (rs.next()) {
+            System.out.println(
+                    "Evento: " + rs.getString("evento")
+                    + " | Tipo: " + rs.getString("tipoEvento")
+                    + " | Stella: " + rs.getString("stella")
+                    + " | Galassia: " + rs.getString("galassia")
+                    + " | Pianeti nella galassia: " + rs.getInt("numeroPianeti")
+            );
+        }
+    }
 }

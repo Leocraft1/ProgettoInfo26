@@ -136,6 +136,9 @@ public class Main {
                 case 8:
                     cli.countStelleInGalassiaCLI();
                     break;
+                case 9:
+                    cli.universoCompleto();
+                    break;
                 case 0:
                     return;
             }
@@ -168,6 +171,9 @@ public class Main {
                     cli.countEventiPerStella();
                     break;
                 case 8:
+                    cli.ultimoEventoCosmico();
+                    break;
+                case 9:
                     cli.ultimoEventoCosmico();
                     break;
                 case 0:
