@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import leolib.iodb.DBConnector;
 import leolib.iodb.PropertiesRead;
 import leolib.listutils.ALUtils;
@@ -797,7 +798,8 @@ public class GestUniverso {
         return dbc.query(sql);
     }
 
-    public void stampaEventiConContesto() throws SQLException {
+    // path: logic/GestioneUniverso.java
+    public ArrayList<ArrayList<String>> getEventiConContestoTable() throws SQLException {
 
         String sql
                 = "SELECT "
@@ -806,23 +808,41 @@ public class GestUniverso {
                 + " s.nome AS stella, "
                 + " g.nome AS galassia, "
                 + " g.tipo AS tipoGalassia, "
-                + " (SELECT COUNT(*) FROM " + tab_names.get(1)
-                + "  WHERE idGalassia = g.idGalassia) AS numeroPianeti "
+                + " COUNT(p.idPianeta) AS numeroPianeti "
                 + "FROM " + tab_names.get(3) + " e "
-                + "JOIN " + tab_names.get(0) + " s ON e.idStella = s.idStella "
-                + "JOIN " + tab_names.get(2) + " g ON s.idGalassia = g.idGalassia "
+                + "LEFT JOIN " + tab_names.get(0) + " s ON e.idStella = s.idStella "
+                + "LEFT JOIN " + tab_names.get(2) + " g ON s.idGalassia = g.idGalassia "
+                + "LEFT JOIN " + tab_names.get(1) + " p ON p.idGalassia = g.idGalassia "
+                + "GROUP BY e.idEventoCosmico, s.nome, g.nome, g.tipo "
                 + "ORDER BY e.dataEvento DESC";
 
         ResultSet rs = dbc.query(sql);
 
+        ArrayList<ArrayList<String>> table = new ArrayList<>();
+
+        table.add(new ArrayList<>(List.of(
+                "Evento", "Tipo", "Stella", "Galassia", "Tipo Galassia", "N° Pianeti"
+        )));
+
         while (rs.next()) {
-            System.out.println(
-                    "Evento: " + rs.getString("evento")
-                    + " | Tipo: " + rs.getString("tipoEvento")
-                    + " | Stella: " + rs.getString("stella")
-                    + " | Galassia: " + rs.getString("galassia")
-                    + " | Pianeti nella galassia: " + rs.getInt("numeroPianeti")
-            );
+
+            ArrayList<String> row = new ArrayList<>();
+
+            row.add(nvl(rs.getString("evento")));
+            row.add(nvl(rs.getString("tipoEvento")));
+            row.add(nvl(rs.getString("stella")));
+            row.add(nvl(rs.getString("galassia")));
+            row.add(nvl(rs.getString("tipoGalassia")));
+            row.add(String.valueOf(rs.getInt("numeroPianeti")));
+
+            table.add(row);
         }
+
+        return table;
     }
+
+    private String nvl(String value) {
+        return value != null ? value : "-";
+    }
+
 }

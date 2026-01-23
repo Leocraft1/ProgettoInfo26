@@ -174,7 +174,7 @@ public class Main {
                     cli.ultimoEventoCosmico();
                     break;
                 case 9:
-                    cli.ultimoEventoCosmico();
+                    cli.eventiConContesto();
                     break;
                 case 0:
                     return;

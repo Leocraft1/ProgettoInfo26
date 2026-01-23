@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import leolib.dtformatters.IT;
 
@@ -24,6 +25,7 @@ import model.enums.TipoGalassia;
 import model.enums.TipoPianeta;
 import myexceptions.DuplicateException;
 import utils.TableFormatter;
+import java.sql.ResultSet;
 
 public class Cli {
 
@@ -1114,32 +1116,49 @@ public class Cli {
         }
     }
 
+    // path: ui/UserInterface.java
     public void universoCompleto() {
         try {
-            var rs = g.getUniversoCompleto();
+            ResultSet rs = g.getUniversoCompleto();
 
-            System.out.println("===== UNIVERSO COMPLETO =====");
+            ArrayList<ArrayList<String>> table = new ArrayList<>();
+
+            table.add(new ArrayList<>(List.of(
+                    "Galassia", "Stella", "Pianeta", "Evento"
+            )));
 
             while (rs.next()) {
-                System.out.println(
-                        "Galassia: " + rs.getString("nomeGalassia")
-                        + " | Stella: " + rs.getString("nomeStella")
-                        + " | Pianeta: " + rs.getString("nomePianeta")
-                        + " | Evento: " + rs.getString("nomeEvento")
-                );
+                table.add(new ArrayList<>(List.of(
+                        rs.getString("nomeGalassia"),
+                        rs.getString("nomeStella"),
+                        rs.getString("nomePianeta"),
+                        rs.getString("nomeEvento")
+                )));
             }
+
+            System.out.println("===== UNIVERSO COMPLETO =====");
+            ConsolePrint.printTable(table, "*");
 
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
+        } catch (InvalidSeparatorException e) {
+            System.out.println("Errore di formattazione tabella.");
         }
     }
 
     public void eventiConContesto() {
         try {
             System.out.println("===== EVENTI COSMICI CON CONTESTO =====");
-            g.stampaEventiConContesto();
+
+            ArrayList<ArrayList<String>> table
+                    = g.getEventiConContestoTable();
+
+            ConsolePrint.printTable(table, "*");
+
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database.");
+        } catch (InvalidSeparatorException e) {
+            System.out.println("Errore di formattazione tabella.");
         }
     }
 }
