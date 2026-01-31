@@ -5,11 +5,8 @@ import userinterface.Cli;
 public class Main {
 
     public static void main(String[] args) {
-        //Create Cli object
+        //Create Cli object and test DB connection
         Cli cli = new Cli();
-
-        //Test connection to the database
-        cli.testDBConnection();
 
         //Displays start message
         cli.startMessage();
@@ -33,6 +30,9 @@ public class Main {
                     //MENU EVENTI COSIMICI
                     ecMenu(cli);
                     break;
+                case 5:
+                    cli.universoCompleto();
+                    break;
                 case 0:
                     System.out.println("Applicazione terminata.");
                     return;
@@ -40,7 +40,6 @@ public class Main {
         } while (true);
     }
 
-    // Menu Stelle
     private static void stelleMenu(Cli cli) {
         do {
             switch (cli.stelleMenu()) {
@@ -66,7 +65,7 @@ public class Main {
                     cli.stelleSenzaGalassia();
                     break;
                 case 8:
-                    cli.countStelleInGalassiaCLI();
+                    cli.countStelleInGalassia();
                     break;
                 case 0:
                     return;
@@ -74,7 +73,6 @@ public class Main {
         } while (true);
     }
 
-// Menu Pianeti
     private static void pianetiMenu(Cli cli) {
         do {
             switch (cli.pianetiMenu()) {
@@ -108,7 +106,6 @@ public class Main {
         } while (true);
     }
 
-// Menu Galassie
     private static void galassieMenu(Cli cli) {
         do {
             switch (cli.galassieMenu()) {
@@ -134,10 +131,7 @@ public class Main {
                     cli.galassieSenzaStelle();
                     break;
                 case 8:
-                    cli.countStelleInGalassiaCLI();
-                    break;
-                case 9:
-                    cli.universoCompleto();
+                    cli.countStelleInGalassia();
                     break;
                 case 0:
                     return;
@@ -145,7 +139,6 @@ public class Main {
         } while (true);
     }
 
-// Menu Eventi Cosmici
     private static void ecMenu(Cli cli) {
         do {
             switch (cli.eventicosmiciMenu()) {
@@ -182,3 +175,4 @@ public class Main {
         } while (true);
     }
 }
+

@@ -67,37 +67,16 @@ public class Galassia {
                 + ", tipo=" + tipo + ", massa=" + massa + "]";
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 47 * hash + this.idGalassia;
-        hash = 47 * hash + Objects.hashCode(this.nome);
-        hash = 47 * hash + Objects.hashCode(this.tipo);
-        hash = 47 * hash + this.massa;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Galassia other = (Galassia) obj;
-        if (this.idGalassia != other.idGalassia) {
-            return false;
-        }
-        if (this.massa != other.massa) {
-            return false;
-        }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        return Objects.equals(this.tipo, other.tipo);
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Galassia other = (Galassia) obj;
+		return idGalassia == other.idGalassia && massa == other.massa && Objects.equals(nome, other.nome)
+				&& tipo == other.tipo;
+	}
 }

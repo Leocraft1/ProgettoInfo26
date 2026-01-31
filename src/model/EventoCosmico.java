@@ -81,50 +81,22 @@ public class EventoCosmico {
     public void setIdStella(int idStella) {
         this.idStella = idStella;
     }
+    
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EventoCosmico other = (EventoCosmico) obj;
+		return Objects.equals(dataEvento, other.dataEvento) && idEventoCosmico == other.idEventoCosmico
+				&& idStella == other.idStella && Objects.equals(nome, other.nome)
+				&& Objects.equals(oraEvento, other.oraEvento) && tipo == other.tipo;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + this.idEventoCosmico;
-        hash = 53 * hash + Objects.hashCode(this.nome);
-        hash = 53 * hash + Objects.hashCode(this.tipo);
-        hash = 53 * hash + Objects.hashCode(this.dataEvento);
-        hash = 53 * hash + Objects.hashCode(this.oraEvento);
-        hash = 53 * hash + this.idStella;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final EventoCosmico other = (EventoCosmico) obj;
-        if (this.idEventoCosmico != other.idEventoCosmico) {
-            return false;
-        }
-        if (this.idStella != other.idStella) {
-            return false;
-        }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        if (this.tipo != other.tipo) {
-            return false;
-        }
-        if (!Objects.equals(this.dataEvento, other.dataEvento)) {
-            return false;
-        }
-        return Objects.equals(this.oraEvento, other.oraEvento);
-    }
-
-    @Override
+	@Override
     public String toString() {
         return "EventoCosmico{" + "idEventoCosmico=" + idEventoCosmico + ", nome=" + nome + ", tipo=" + tipo + ", dataEvento=" + dataEvento + ", oraEvento=" + oraEvento + ", idStella=" + idStella + '}';
     }

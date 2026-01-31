@@ -128,50 +128,22 @@ public class Stella {
     public void setIdGalassia(int idGalassia) {
         this.idGalassia = idGalassia;
     }
+    
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Stella other = (Stella) obj;
+		return fase == other.fase && idGalassia == other.idGalassia && idStella == other.idStella
+				&& Objects.equals(nome, other.nome) && Objects.equals(sistema, other.sistema)
+				&& temperatura == other.temperatura;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + this.idStella;
-        hash = 67 * hash + Objects.hashCode(this.nome);
-        hash = 67 * hash + Objects.hashCode(this.sistema);
-        hash = 67 * hash + this.temperatura;
-        hash = 67 * hash + Objects.hashCode(this.fase);
-        hash = 67 * hash + this.idGalassia;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Stella other = (Stella) obj;
-        if (this.idStella != other.idStella) {
-            return false;
-        }
-        if (this.temperatura != other.temperatura) {
-            return false;
-        }
-        if (this.idGalassia != other.idGalassia) {
-            return false;
-        }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        if (!Objects.equals(this.sistema, other.sistema)) {
-            return false;
-        }
-        return this.fase == other.fase;
-    }
-
-    @Override
+	@Override
     public String toString() {
         return "Stella{" + "idStella=" + idStella + ", nome=" + nome + ", sistema=" + sistema + ", temperatura=" + temperatura + ", fase=" + fase + ", idGalassia=" + idGalassia + '}';
     }

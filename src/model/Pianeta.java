@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Objects;
+
 import model.enums.TipoPianeta;
 
 public class Pianeta {
@@ -36,8 +37,7 @@ public class Pianeta {
      * @param tipo
      * @param temperatura
      */
-    public Pianeta(int idPianeta, String nome, String sistema,
-            TipoPianeta tipo, int temperatura) {
+    public Pianeta(int idPianeta, String nome, String sistema,TipoPianeta tipo, int temperatura) {
         this.idPianeta = idPianeta;
         this.nome = nome;
         this.sistema = sistema;
@@ -54,8 +54,7 @@ public class Pianeta {
      * @param temperatura
      * @param idGalassia
      */
-    public Pianeta(int idPianeta, String nome, TipoPianeta tipo,
-            int temperatura, int idGalassia) {
+    public Pianeta(int idPianeta, String nome, TipoPianeta tipo,int temperatura, int idGalassia) {
         this.idPianeta = idPianeta;
         this.nome = nome;
         this.tipo = tipo;
@@ -73,8 +72,7 @@ public class Pianeta {
      * @param temperatura
      * @param idGalassia
      */
-    public Pianeta(int idPianeta, String nome, String sistema,
-            TipoPianeta tipo, int temperatura, int idGalassia) {
+    public Pianeta(int idPianeta, String nome, String sistema,TipoPianeta tipo, int temperatura, int idGalassia) {
         this.idPianeta = idPianeta;
         this.nome = nome;
         this.sistema = sistema;
@@ -131,49 +129,20 @@ public class Pianeta {
         this.idGalassia = idGalassia;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + this.idPianeta;
-        hash = 83 * hash + Objects.hashCode(this.nome);
-        hash = 83 * hash + Objects.hashCode(this.sistema);
-        hash = 83 * hash + Objects.hashCode(this.tipo);
-        hash = 83 * hash + this.temperatura;
-        hash = 83 * hash + this.idGalassia;
-        return hash;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pianeta other = (Pianeta) obj;
+		return idGalassia == other.idGalassia && idPianeta == other.idPianeta && Objects.equals(nome, other.nome)
+				&& Objects.equals(sistema, other.sistema) && temperatura == other.temperatura && tipo == other.tipo;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Pianeta other = (Pianeta) obj;
-        if (this.idPianeta != other.idPianeta) {
-            return false;
-        }
-        if (this.temperatura != other.temperatura) {
-            return false;
-        }
-        if (this.idGalassia != other.idGalassia) {
-            return false;
-        }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        if (!Objects.equals(this.sistema, other.sistema)) {
-            return false;
-        }
-        return this.tipo == other.tipo;
-    }
-
-    @Override
+	@Override
     public String toString() {
         return "Pianeta{" + "idPianeta=" + idPianeta + ", nome=" + nome + ", sistema=" + sistema + ", tipo=" + tipo + ", temperatura=" + temperatura + ", idGalassia=" + idGalassia + '}';
     }
