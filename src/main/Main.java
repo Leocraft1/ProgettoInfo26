@@ -3,7 +3,6 @@ package main;
 import userinterface.Cli;
 
 public class Main {
-
     public static void main(String[] args) {
         //Create Cli object and test DB connection
         Cli cli = new Cli();
