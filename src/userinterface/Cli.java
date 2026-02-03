@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import leolib.dtformatters.IT;
 
@@ -25,7 +24,6 @@ import model.enums.TipoGalassia;
 import model.enums.TipoPianeta;
 import myexceptions.DuplicateException;
 import utils.TableFormatter;
-import java.sql.ResultSet;
 
 public class Cli {
     private GestUniverso g = new GestUniverso();
