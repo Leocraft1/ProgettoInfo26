@@ -326,7 +326,7 @@ public class GestUniverso {
         return getECFromRS(rs);
     }
 
-    public ResultSet getUniversoCompleto() throws SQLException {
+    public ArrayList<ArrayList<String>> getUniversoCompleto() throws SQLException {
         String sql
                 = "SELECT "
                 + " g.idGalassia, g.nome AS nomeGalassia, g.tipo AS tipoGalassia, g.massa, "
@@ -342,8 +342,21 @@ public class GestUniverso {
                 "LEFT JOIN " + tab_names.get(3) + " e ON e.idStella = s.idStella "
                 + // Evento
                 "ORDER BY g.nome, s.nome, p.nome";
+        ResultSet rs = dbc.query(sql);
+        
+        ArrayList<ArrayList<String>> table = new ArrayList<>();
 
-        return dbc.query(sql);
+        table.add(new ArrayList<>(List.of("Galassia", "Stella", "Pianeta", "Evento")));
+
+        while (rs.next()) {
+            table.add(new ArrayList<>(List.of(
+                    rs.getString("nomeGalassia"),
+                    rs.getString("nomeStella"),
+                    rs.getString("nomePianeta"),
+                    rs.getString("nomeEvento")
+            )));
+        }
+        return table;
     }
 
     public ArrayList<ArrayList<String>> getEventiConContestoTable() throws SQLException {
@@ -374,13 +387,26 @@ public class GestUniverso {
             ArrayList<String> row = new ArrayList<>();
             row.add(rs.getString("evento"));
             row.add(rs.getString("tipoEvento"));
-            row.add(rs.getString("stella"));
-            row.add(rs.getString("galassia"));
-            row.add(rs.getString("tipoGalassia"));
+            if(rs.getString("stella") != null) {
+            	row.add(rs.getString("stella"));
+            }else{
+            	row.add("null");
+            }
+            if(rs.getString("galassia") != null) {
+            	row.add(rs.getString("galassia"));
+            }else{
+            	row.add("null");
+            }
+            if(rs.getString("tipoGalassia") != null) {
+            	row.add(rs.getString("tipoGalassia"));
+            }else{
+            	row.add("null");
+            }
             row.add(String.valueOf(rs.getInt("numeroPianeti")));
 
             table.add(row);
         }
+        dbc.close();
         return table;
     }
 

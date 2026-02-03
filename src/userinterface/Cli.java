@@ -926,26 +926,10 @@ public class Cli {
     
     public void universoCompleto() {
         try {
-            ResultSet rs = g.getUniversoCompleto();
-
-            ArrayList<ArrayList<String>> table = new ArrayList<>();
-
-            table.add(new ArrayList<>(List.of(
-                    "Galassia", "Stella", "Pianeta", "Evento"
-            )));
-
-            while (rs.next()) {
-                table.add(new ArrayList<>(List.of(
-                        rs.getString("nomeGalassia"),
-                        rs.getString("nomeStella"),
-                        rs.getString("nomePianeta"),
-                        rs.getString("nomeEvento")
-                )));
-            }
+            ArrayList<ArrayList<String>> table = g.getUniversoCompleto();
 
             System.out.println("===== UNIVERSO COMPLETO =====");
             ConsolePrint.printTable(table, "*");
-
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database."+e);
         } catch (InvalidSeparatorException e) {
@@ -957,11 +941,8 @@ public class Cli {
         try {
             System.out.println("===== EVENTI COSMICI CON CONTESTO =====");
 
-            ArrayList<ArrayList<String>> table
-                    = g.getEventiConContestoTable();
-
+            ArrayList<ArrayList<String>> table = g.getEventiConContestoTable();
             ConsolePrint.printTable(table, "*");
-
         } catch (SQLException e) {
             System.out.println("Errore di comunicazione con il database."+e);
         } catch (InvalidSeparatorException e) {
